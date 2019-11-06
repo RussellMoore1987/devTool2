@@ -1,0 +1,31 @@
+/* global CSS here */
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    /* setting main CSS variables */
+    --main-title-color: #9E9E9E;
+}
+
+/* text CSS */
+.title {
+    color: var(--main-title-color, #9E9E9E);
+}
+
+/* buttons */
+.dt-btn {
+   border: unset;
+   color: #ffffff;
+   padding: 10px 20px;
+   background-color: #F89C1B; 
+   border-radius: 7px;
+   cursor: pointer;
+   outline: none;
+   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.12);
+   transition: all 400ms ease-in-out;
+}
+
+.dt-btn:hover {
+    color: #ffffff;
+    background-color: #df8b16;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0); 
+ }

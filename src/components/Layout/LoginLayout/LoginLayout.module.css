@@ -1,0 +1,113 @@
+/* login container */
+.loginContainer {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    /* height: 380px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 11px 8px 13px rgba(0, 0, 0, 0.12);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.loginContainer > div {
+    box-sizing: border-box;
+}
+
+/* login message */
+.loginMessage {
+    background-position: -400px;
+    background-repeat: no-repeat;
+    background-size: 1000px;
+    min-height: 380px;
+    width: 34%;
+    color: #ffffff;
+    padding: 55px 75px 55px 35px;
+    border-radius: 15px 0px 0px 15px;
+}
+
+.loginMessage h1 {
+    font-size: 25px;
+ }
+
+.loginMessage p {
+   font-size: 12px;
+}
+
+/* login form */
+.loginForm {
+    width: 67%;
+    padding: 35px 45px 35px 55px;
+    background-color: #ffffff;
+    min-height: 380px;
+    border-radius: 0px 15px 15px 0px;
+    transition: padding 400ms ease-in-out, min-height 400ms ease-in-out;
+}
+
+.success input {
+    border-color: #62bb46;
+}
+
+.error input {
+    border-color: #FF0909;
+}
+
+.errorMessage {
+    position: absolute;
+    top: 151px;
+    right: 54px;
+    color: #FE8787;    
+}
+
+.loginLogo {
+    max-width: 250px;
+    transition: max-width 400ms ease-in-out;
+}
+
+.loginForm .formBtn {
+    font-size: 14px;
+    padding: 10px 55px;
+}
+
+.formBtnContainer {
+    text-align: right;
+}
+
+@media screen and (max-width: 1100px) {
+    .loginMessage {
+        padding: 55px 35px 55px 35px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .loginContainer {
+        display: block;
+        align-items: unset;
+        justify-content: unset;
+    }
+
+    .loginMessage {
+        display: none;
+    }
+
+    .loginForm {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .loginContainer {
+        width: 90%;
+    }
+
+    .loginForm {
+        padding: 35px 25px 35px 25px;
+        min-height: 300px;
+    }
+
+    .loginLogo {
+        max-width: 225px;
+    }
+}

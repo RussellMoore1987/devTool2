@@ -1,0 +1,119 @@
+.svg {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    width: 100px;
+}
+
+.cls1,.cls2,.cls3,.cls4 {
+    fill:none;stroke:#62bb46;
+    stroke-miterlimit:10;
+    stroke-linecap:round;
+}
+
+.cls1 { 
+    stroke-linecap:round;
+    stroke-width:4px;
+}
+
+.cls2 {
+    stroke-width:17px;
+    opacity:0.47;
+} 
+
+.cls3,.cls4 {
+    stroke-width:3px;
+}
+/* check */
+.svg .cls1 {
+    animation-name: svgGo_cls1;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation-duration: 1s; 
+    animation-timing-function: cubic-bezier(0.42, 0, 0.07, 1);
+    animation-delay: 0.3s;   
+    animation-fill-mode: forwards; 
+    /* display: none;  */
+}
+
+@keyframes svgGo_cls1 {
+    0% {
+        stroke-dashoffset: 100;
+    }
+    100% {
+        stroke-dashoffset: 0; 
+    }
+}
+/* bigger circle */
+.svg .cls2 {
+    animation-name: svgGo_cls2;
+    stroke-opacity: 0; 
+    animation-duration: 1.3s; 
+    animation-timing-function: cubic-bezier(0.42, 0, 0.07, 1.22);
+    animation-fill-mode: forwards; 
+    transform: scale(0);
+    transform-origin: center; 
+    /* display: none;  */
+}
+
+@keyframes svgGo_cls2 {
+    0% {
+        stroke-opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        stroke-opacity: 1;
+    }
+    100% {
+        stroke-opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.svg .cls3 {
+    animation-name: svgGo_cls3;
+    stroke-dasharray: 410;
+    stroke-dashoffset: -410; 
+    animation-duration: 1s; 
+    animation-timing-function: cubic-bezier(0.42, 0, 0.07, 1.22);
+    animation-fill-mode: forwards; 
+    transform: rotate(-40deg) scale(0.3);
+    transform-origin: center; 
+    /* display: none;  */
+}
+
+@keyframes svgGo_cls3 {
+    0% {
+        stroke-dashoffset: -410;
+        transform: rotate(-40deg) scale(0.3);
+    }
+    100% {
+        stroke-dashoffset: -50; 
+        transform: rotate(-40deg) scale(1);
+    }
+}
+
+/* first Circle */
+.svg .cls4 {
+    animation-name: svgGo_cls4;
+    stroke-dasharray: 410;
+    stroke-dashoffset: -410; 
+    animation-timing-function: cubic-bezier(0.42, 0, 0.07, 1.22);
+    animation-duration: 1s;
+    animation-fill-mode: forwards;  
+    transform: rotate(-20deg) scale(0.3);
+    transform-origin: center; 
+    /* display: none;  */
+}
+
+@keyframes svgGo_cls4 {
+    0% {
+        stroke-dashoffset: -410;
+        transform: rotate(-20deg) scale(0.3);
+    }
+
+    100% {
+        stroke-dashoffset: -390;
+        transform: rotate(-20deg) scale(1);
+    }
+}

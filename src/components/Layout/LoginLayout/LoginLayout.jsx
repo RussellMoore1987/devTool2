@@ -9,14 +9,14 @@ import './LoginLayout.animations.css';
 import styles from './LoginLayout.module.css';
 // assets
 import messageBackgroundImg from "../../../assets/images/hot-air-balloon-2411851.jpg";
-import logo from "../../../assets/images/lightLogo.png";
-import Checkbox from "./Checkbox/Checkbox.jsx";
+import logo2 from "../../../assets/images/logo_no_cogs.png";
+import Cogs from "../../IconAnimations/Cogs/Cogs.jsx";
+import Checkbox from "../../IconAnimations/Checkbox/Checkbox.jsx";
 
 export default class LoginLayout extends Component {
 
   // state 
   // state is a reserved word
-  // ! start here **********************************8
   state = {
     error: false,
     errorMessage: "",
@@ -90,18 +90,32 @@ export default class LoginLayout extends Component {
     // check for success and error and perform the proper actions
     let successCheck = "";
     let formStatusClass = "";
-    let errorMessage = <p className={styles.errorMessage}></p>;
+    let errorMessage = <p className={styles.errorMessage + " login-fade message-fade "}>{this.state.errorMessage}</p>;
     if (this.state.success) {
       successCheck = <Checkbox/>;
       formStatusClass = styles.success;
     } else if (this.state.error) {
-      errorMessage = <p className={styles.errorMessage}>{this.state.errorMessage}</p>;
+      errorMessage = <p className={styles.errorMessage + " message-fade"}>{this.state.errorMessage}</p>;
       formStatusClass = styles.error;
     }
 
+    // ! start here ************************************************************************
+    // TODO: possibly speed up my animation
+    // TODO: focus at end of text
+    // TODO: make cogs start check mark appears
+    // TODO: check to see if it still responsive, the login screen
+    // TODO: put Max and min characters on text field
+    // TODO: Delay a little bit the text field turning into the password field and vice a versa
 
     // background image
     const messageBackground = {backgroundImage: `url(${messageBackgroundImg})`};
+
+    // set focus
+    if (!this.state.error && !this.state.success) {
+      setTimeout(() => {
+        document.querySelector(".username").focus();  
+      }, 1000);
+    }
 
     return (
       <CSSTransition in={true} appear={true} mountOnEnter unmountOnExit classNames={"login-fade"} timeout={loginFade}>
@@ -112,9 +126,15 @@ export default class LoginLayout extends Component {
           </div>
           <div className={styles.loginForm}>
             <form className={formStatusClass}>
-              {errorMessage} 
+              <CSSTransition in={this.state.error} appear={true} mountOnEnter unmountOnExit classNames={"message-fade"} timeout={loginFade}>
+                {errorMessage}
+              </CSSTransition> 
               {successCheck}
-              <img className={styles.loginLogo} src={logo} alt=""/>
+              <div className={styles.logoContainer}>
+                <Cogs className={styles.cogs} />
+                <img className={styles.loginLogo} src={logo2} alt=""/>
+                <div className={styles.logoLight}></div>
+              </div>
               <h3 className="title">Login</h3>
               <LoginInput className="username" type="text" label="Username" />
               <LoginInput className="password" type="password" label="Password" />

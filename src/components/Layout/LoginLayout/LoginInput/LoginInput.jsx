@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import styles from "./LoginInput.module.css";
 import "./LoginInput.animation.css";
+// import icon
+import PasswordIcon from "./PasswordIcon/PasswordIcon.jsx";
 
 export default class LoginInput extends Component {
   
@@ -28,31 +30,48 @@ export default class LoginInput extends Component {
 
   // when you click on the label it will activate the focus on the form
   eyeIconHandler = (e) => {
+    // get svg
+    const iconContainer = e.target.closest("div");
+    const svg = iconContainer.querySelector("svg")
     // switch the eyeball class
-    e.target.classList.toggle("fa-eye")
-    e.target.classList.toggle("fa-eye-slash")
+    if (!svg.classList.contains('eyeSlash') && !svg.classList.contains('eyeSlashOff')) {
+      svg.classList.toggle("eyeSlash")
+      setTimeout(function(){
+        svg.classList.toggle("eyeSlashHold")
+      }, 1000);
+    } else {
+      if (svg.classList.contains('eyeSlash')) {
+        svg.classList.toggle("eyeSlashOff")
+        setTimeout(() => {
+          svg.classList.toggle("eyeSlash")
+          svg.classList.toggle("eyeSlashHold")
+          svg.classList.toggle("eyeSlashOff")
+        }, 1000);
+      }
+    }
     // get the form group, consisting of label and input
-    const formGroup = e.target.closest("div");
+    const formGroup = e.target.closest("div.formGroup");
     // set the input
     const input = formGroup.querySelector("input");
     // switch input from text to password accordingly
-    if (input.getAttribute("type") === "text") {
-      input.setAttribute("type", "password");
-    } else {
-      input.setAttribute("type", "text");
-    }
+    setTimeout(() => {
+      if (input.getAttribute("type") === "text") {
+        input.setAttribute("type", "password");
+      } else {
+        input.setAttribute("type", "text");
+      }
+    }, 500);
   }
-
   
   render() {
     // if this.props.type === password, put in eyeball icon
     let eyeIcon = "";
     if (this.props.type === "password") {
-      eyeIcon = <i className="far fa-eye" onClick={this.eyeIconHandler.bind(this)}></i>;
+      eyeIcon = <PasswordIcon click={this.eyeIconHandler.bind(this)}/>;
     }
 
     return (
-      <div className={styles.formGroup}>
+      <div className={styles.formGroup + " formGroup"}>
         <label htmlFor="" onClick={this.labelSelectorHandler.bind(this)}>{this.props.label}</label>
         {eyeIcon}
         <input

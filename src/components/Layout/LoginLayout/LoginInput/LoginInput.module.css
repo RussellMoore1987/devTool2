@@ -14,14 +14,6 @@
     transition: all 400ms ease-in-out;
 }
 
-.formGroup i {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: #c5c5c5;
-    cursor: pointer;
-}
-
 .formGroup input {
     display: block;
     box-sizing: border-box;

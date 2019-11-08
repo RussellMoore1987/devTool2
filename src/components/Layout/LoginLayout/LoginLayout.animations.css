@@ -6,7 +6,12 @@
     animation-fill-mode: forwards;
 }
 
-
+.message-fade {  
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1000ms ease-in-out, transform 600ms ease-in-out;
+    animation-fill-mode: forwards;  
+}
 
 /* enter ================================================================= */
 .login-fade-enter {
@@ -15,24 +20,62 @@
 
 .login-fade-enter-active {
     opacity: 1;
+    transform: translateY(0px);
 }
 
 .login-fade-enter-done {
     opacity: 1;
+    transform: translateY(0px);
+}
+
+.message-fade-enter {
+    opacity: 0;
+}
+
+.message-fade-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.message-fade-enter-done {
+    opacity: 1;
+    transform: translateY(0px);
 }
 
 /* exit ================================================================= */
 
 .login-fade-exit {
-    opacity: 1;
+    /* opacity: 1;
+    transform: translateY(0px); */
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 .login-fade-exit-active {
     opacity: 0;
+    transform: translateY(50px);
 }
 
 .login-fade-exit-done {
     opacity: 0;
+    transform: translateY(50px);
+}
+
+.message-fade-exit {
+    /* opacity: 1;
+    transform: translateY(0px); */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.message-fade-exit-active {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.message-fade-exit-done {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 /* appear ================================================================= */
@@ -48,6 +91,20 @@
 }
 
 .login-fade-appear-done{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.message-fade-appear{
+    opacity: 0;
+}
+
+.message-fade-appear-active{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.message-fade-appear-done{
     opacity: 1;
     transform: translateY(0px);
 }

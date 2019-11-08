@@ -1,0 +1,21 @@
+.svg {
+    width: 43px;
+}
+
+.cls1 {
+    fill:url(#linear-gradient);
+}
+
+.cls2 {
+    fill:url(#linear-gradient-2);
+}
+
+.cls3 {
+    fill:url(#linear-gradient-3);
+}
+
+@media screen and (max-width: 560px) {
+    .svg {
+        width: 45px;
+    }
+}

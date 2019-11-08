@@ -46,6 +46,17 @@
     transition: padding 400ms ease-in-out, min-height 400ms ease-in-out;
 }
 
+.logoContainer {
+    position: relative;
+    height: 71px;
+}
+
+.cogs {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 .success input {
     border-color: #62bb46;
 }
@@ -56,14 +67,39 @@
 
 .errorMessage {
     position: absolute;
-    top: 151px;
+    top: 127px;
     right: 54px;
     color: #FE8787;    
 }
 
 .loginLogo {
-    max-width: 250px;
+    position: absolute;
+    top: 2px;
+    left: 24px;
+    max-width: 200px;
     transition: max-width 400ms ease-in-out;
+}
+
+.success .logoLight {
+    position: absolute;
+    top: 35px;
+    left: 52px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffffda;
+    box-shadow: 
+        0 0 20px 15px #fff, 
+        0 0 39px 22px #f8fa7a, 
+        0 0 90px 18px #f5f79c;
+    opacity: 0;
+    animation: lightUp 1000ms ease-in-out 800ms forwards;
+}
+
+@keyframes lightUp {
+    to {
+        opacity: 1;    
+    }
 }
 
 .loginForm .formBtn {
@@ -97,7 +133,13 @@
     }
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 620px) {
+    .errorMessage {
+        display: none;    
+    }
+}
+
+@media screen and (max-width: 560px) {
     .loginContainer {
         width: 90%;
     }
@@ -109,5 +151,9 @@
 
     .loginLogo {
         max-width: 225px;
+    }
+
+    .logoContainer {
+        height: 82px;
     }
 }

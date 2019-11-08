@@ -1,8 +1,9 @@
 .svg {
     position: absolute;
     top: 40px;
-    right: 50px;
+    right: 40px;
     width: 100px;
+    transition: right 400ms ease-in-out;
 }
 
 .cls1,.cls2,.cls3,.cls4 {
@@ -115,5 +116,17 @@
     100% {
         stroke-dashoffset: -390;
         transform: rotate(-20deg) scale(1);
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .svg {
+        right: 20px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .svg {
+        display: none;    
     }
 }

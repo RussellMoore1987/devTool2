@@ -1,0 +1,28 @@
+
+.LoginLayout_success__3xfUW .cog1{
+    animation: rotate 1200ms linear 500ms reverse;
+    transform: rotate(0deg);
+    transform-origin: 28% 57%;
+    animation-iteration-count: infinite;
+}
+
+.LoginLayout_success__3xfUW .cog2{
+    animation: rotate 2000ms linear 500ms;
+    transform: rotate(0deg);
+    transform-origin: 59% 31%;
+    animation-iteration-count: infinite;
+}
+
+.LoginLayout_success__3xfUW .cog3{
+    animation: rotate 900ms linear 500ms;
+    transform: rotate(0deg);
+    transform-origin: 55% 79%;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}

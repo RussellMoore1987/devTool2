@@ -1,0 +1,11 @@
+/* main animations =======================================================================*/
+/* should not be component specific */
+.panel-fade-in {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.panel-fade-out {
+    opacity: 0;
+    transform: translateY(100px);
+}

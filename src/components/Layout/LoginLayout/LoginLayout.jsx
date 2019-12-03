@@ -1,12 +1,13 @@
 // packages
-import React, { Component } from 'react'
-import CSSTransition from "react-transition-group/CSSTransition";
+import React, { Component } from 'react';
 import axios from 'axios';
+// context
+import ShopContext from '../../../context/shop-context'
 // components
 import LoginInput from "./LoginInput/LoginInput.jsx";
-// CSS
-import './LoginLayout.animations.css';
-import styles from './LoginLayout.module.css';
+// CSS 
+// CSS component indicator: LoginLayout = ll_(class or id)
+import './LoginLayout.css';
 // assets
 import messageBackgroundImg from "../../../assets/images/hot-air-balloon-2411851.jpg";
 import logo2 from "../../../assets/images/logo_no_cogs.png";
@@ -14,6 +15,8 @@ import Cogs from "../../IconAnimations/Cogs/Cogs.jsx";
 import Checkbox from "../../IconAnimations/Checkbox/Checkbox.jsx";
 
 export default class LoginLayout extends Component {
+  // connecting to the context store, main state management
+  static contextType = ShopContext; 
 
   // state 
   // state is a reserved word
@@ -28,9 +31,9 @@ export default class LoginLayout extends Component {
     // prevent form submission
     e.preventDefault()
     // get username and password from inputs
-    const username = document.querySelector(".username").value;
-    const password = document.querySelector(".password").value;
-    // construct the instructions for context API
+    const username = document.querySelector(".ll_username").value;
+    const password = document.querySelector(".ll_password").value;
+    // construct the instructions for core integration context API
     const instructions_str = {
       login: {
         "type": "devTool",
@@ -51,7 +54,7 @@ export default class LoginLayout extends Component {
     // put request in to form data
     const formData = new FormData();
     formData.append('instructions', JSON.stringify(instructions_str));
-    // make the call to context API
+    // make the call to the core integration context API
     axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
       .then(response => {
         console.log("contextApi got it", response);
@@ -62,7 +65,15 @@ export default class LoginLayout extends Component {
             this.setState({
               error: false,
               success: true
-            })  
+            })
+            // trigger login in main state, this makes it switch to the dashboard
+            setTimeout(() => {
+              this.context.loginHandler();
+            }, 3000);
+            // set fade-out animation
+            setTimeout(() => {
+              document.querySelector(".ll_loginContainer").classList.add('panel-fade-out');  
+            }, 2000);
           } else {
             // output error messages
             console.log(response.data.content.login.errors);
@@ -73,6 +84,7 @@ export default class LoginLayout extends Component {
             })    
           }
         }
+        // TODO: add else
       }).catch(error => {
           console.log("contextApi error.response", error.response);
       });
@@ -80,29 +92,21 @@ export default class LoginLayout extends Component {
   // @ Goes and validates the login process end
 
   render() {
-    // set animation timing
-    const loginFade = {
-      appear: 1000,
-      enter: 1000,
-      exit: 1000
-    }
-
     // check for success and error and perform the proper actions
     let successCheck = "";
     let formStatusClass = "";
-    let errorMessage = <p className={styles.errorMessage + " login-fade message-fade "}>{this.state.errorMessage}</p>;
+    let errorMessage = <p className={"ll_errorMessage"}></p>;
     if (this.state.success) {
       successCheck = <Checkbox/>;
-      formStatusClass = styles.success;
+      formStatusClass = "ll_success";
     } else if (this.state.error) {
-      errorMessage = <p className={styles.errorMessage + " message-fade"}>{this.state.errorMessage}</p>;
-      formStatusClass = styles.error;
+      errorMessage = <p className={"ll_errorMessage"}>{this.state.errorMessage}</p>;
+      formStatusClass = "ll_error";
     }
 
     // ! start here ************************************************************************
     // TODO: possibly speed up my animation
     // TODO: focus at end of text
-    // TODO: make cogs start check mark appears
     // TODO: check to see if it still responsive, the login screen
     // TODO: put Max and min characters on text field
     // TODO: Delay a little bit the text field turning into the password field and vice a versa
@@ -113,38 +117,39 @@ export default class LoginLayout extends Component {
     // set focus
     if (!this.state.error && !this.state.success) {
       setTimeout(() => {
-        document.querySelector(".username").focus();  
+        document.querySelector(".ll_username").focus();  
       }, 1000);
     }
 
+    // set fade-in animation
+    setTimeout(() => {
+      document.querySelector(".ll_loginContainer").classList.add('panel-fade-in');  
+    }, 400);
+
     return (
-      <CSSTransition in={true} appear={true} mountOnEnter unmountOnExit classNames={"login-fade"} timeout={loginFade}>
-        <div className={styles.loginContainer + " login-fade"}>
-          <div style={messageBackground} className={styles.loginMessage}>
-            <h1>Imagine It, Plan It, Create It</h1>
-            <p>The power to do amazing things is within you. What amazing things will you make today?</p>
-          </div>
-          <div className={styles.loginForm}>
-            <form className={formStatusClass}>
-              <CSSTransition in={this.state.error} appear={true} mountOnEnter unmountOnExit classNames={"message-fade"} timeout={loginFade}>
-                {errorMessage}
-              </CSSTransition> 
-              {successCheck}
-              <div className={styles.logoContainer}>
-                <Cogs className={styles.cogs} />
-                <img className={styles.loginLogo} src={logo2} alt=""/>
-                <div className={styles.logoLight}></div>
-              </div>
-              <h3 className="title">Login</h3>
-              <LoginInput className="username" type="text" label="Username" />
-              <LoginInput className="password" type="password" label="Password" />
-              <div className={styles.formBtnContainer}>
-                <button type="submit" className={styles.formBtn + " dt-btn"} onClick={this.loginCheckerHandler.bind(this)}>Login</button>
-              </div>
-            </form>
-          </div>
+      <div className={"ll_loginContainer"}>
+        <div style={messageBackground} className={"ll_loginMessage"}>
+          <h1>Imagine It, Plan It, Create It</h1>
+          <p>The power to do amazing things is within you. What amazing things will you make today?</p>
         </div>
-      </CSSTransition>
+        <div className={"ll_loginForm"}>
+          <form className={formStatusClass}>
+            {errorMessage}
+            {successCheck}
+            <div className={"ll_logoContainer"}>
+              <Cogs className={"ll_cogs"} />
+              <img className={"ll_loginLogo"} src={logo2} alt=""/>
+              <div className={"ll_logoLight"}></div>
+            </div>
+            <h3 className="ll_title">Login</h3>
+            <LoginInput className="ll_username" type="text" label="Username" />
+            <LoginInput className="ll_password" type="password" label="Password" />
+            <div className={"ll_formBtnContainer"}>
+              <button type="submit" className={"ll_formBtn dt-btn"} onClick={this.loginCheckerHandler.bind(this)}>Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
     )
   }
 }

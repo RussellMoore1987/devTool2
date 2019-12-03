@@ -8,11 +8,11 @@ export default function SvgLogo(props) {
       <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 176.15 236.38">
         <defs>
           <linearGradient id="linear-gradient" y1="133.47" x2="99.28" y2="133.47" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#f58220"/>
-            <stop offset="0.19" stop-color="#f68b1d"/>
-            <stop offset="0.49" stop-color="#f9a314"/>
-            <stop offset="0.87" stop-color="#fdcb06"/>
-            <stop offset="1" stop-color="#ffda00"/>
+            <stop offset="0" stopColor="#f58220"/>
+            <stop offset="0.19" stopColor="#f68b1d"/>
+            <stop offset="0.49" stopColor="#f9a314"/>
+            <stop offset="0.87" stopColor="#fdcb06"/>
+            <stop offset="1" stopColor="#ffda00"/>
           </linearGradient>
           <linearGradient id="linear-gradient-2" x1="33.84" y1="72.97" x2="176.15" y2="72.97" href="#linear-gradient"/>
           <linearGradient id="linear-gradient-3" x1="47.7" y1="186.44" x2="145.09" y2="186.44" href="#linear-gradient"/>

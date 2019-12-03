@@ -1,23 +1,25 @@
 /* login container */
-.loginContainer {
+.ll_loginContainer {
     position: relative;
     width: 80%;
     max-width: 1000px;
-    /* height: 380px; */
+    opacity: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 11px 8px 13px rgba(0, 0, 0, 0.12);
     border-radius: 15px;
+    transform: translateY(100px);
+    transition: opacity 800ms ease-in-out, transform 800ms ease-in-out, width 400ms ease-in-out;
     overflow: hidden;
 }
 
-.loginContainer > div {
+.ll_loginContainer > div {
     box-sizing: border-box;
 }
 
 /* login message */
-.loginMessage {
+.ll_loginMessage {
     background-position: -400px;
     background-repeat: no-repeat;
     background-size: 1000px;
@@ -28,16 +30,16 @@
     border-radius: 15px 0px 0px 15px;
 }
 
-.loginMessage h1 {
+.ll_loginMessage h1 {
     font-size: 25px;
  }
 
-.loginMessage p {
+.ll_loginMessage p {
    font-size: 12px;
 }
 
 /* login form */
-.loginForm {
+.ll_loginForm {
     width: 67%;
     padding: 35px 45px 35px 55px;
     background-color: #ffffff;
@@ -46,33 +48,37 @@
     transition: padding 400ms ease-in-out, min-height 400ms ease-in-out;
 }
 
-.logoContainer {
+.ll_logoContainer {
     position: relative;
     height: 71px;
 }
 
-.cogs {
+.ll_cogs {
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-.success input {
+.ll_success input {
     border-color: #62bb46;
 }
 
-.error input {
+.ll_error input {
     border-color: #FF0909;
 }
 
-.errorMessage {
+.ll_error label {
+    color: #FF0909;
+}
+
+.ll_errorMessage {
     position: absolute;
     top: 127px;
     right: 54px;
     color: #FE8787;    
 }
 
-.loginLogo {
+.ll_loginLogo {
     position: absolute;
     top: 2px;
     left: 24px;
@@ -80,7 +86,7 @@
     transition: max-width 400ms ease-in-out;
 }
 
-.success .logoLight {
+.ll_success .ll_logoLight {
     position: absolute;
     top: 35px;
     left: 52px;
@@ -102,58 +108,58 @@
     }
 }
 
-.loginForm .formBtn {
+.ll_loginForm .ll_formBtn {
     font-size: 14px;
     padding: 10px 55px;
 }
 
-.formBtnContainer {
+.ll_formBtnContainer {
     text-align: right;
 }
 
 @media screen and (max-width: 1100px) {
-    .loginMessage {
+    .ll_loginMessage {
         padding: 55px 35px 55px 35px;
     }
 }
 
 @media screen and (max-width: 1000px) {
-    .loginContainer {
+    .ll_loginContainer {
         display: block;
         align-items: unset;
         justify-content: unset;
     }
 
-    .loginMessage {
+    .ll_loginMessage {
         display: none;
     }
 
-    .loginForm {
+    .ll_loginForm {
         width: 100%;
     }
 }
 
 @media screen and (max-width: 620px) {
-    .errorMessage {
+    .ll_errorMessage {
         display: none;    
     }
 }
 
 @media screen and (max-width: 560px) {
-    .loginContainer {
+    .ll_loginContainer {
         width: 90%;
     }
 
-    .loginForm {
+    .ll_loginForm {
         padding: 35px 25px 35px 25px;
         min-height: 300px;
     }
 
-    .loginLogo {
+    .ll_loginLogo {
         max-width: 225px;
     }
 
-    .logoContainer {
+    .ll_logoContainer {
         height: 82px;
     }
 }

@@ -4,11 +4,16 @@ body {
     font-size: 15px;
     /* setting main CSS variables */
     --main-title-color: #9E9E9E;
+    --main-text-color: #AFAFAF;
 }
 
 /* text CSS */
 .title {
     color: var(--main-title-color, #9E9E9E);
+}
+
+i {
+    color: var(--main-text-color, #AFAFAF);   
 }
 
 /* buttons */

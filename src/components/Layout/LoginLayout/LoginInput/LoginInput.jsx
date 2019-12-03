@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
-import styles from "./LoginInput.module.css";
-import "./LoginInput.animation.css";
-// import icon
+// CSS
+// CSS component indicator: LoginInput = li_(class or id)
+import "./LoginInput.css";
+// components
 import PasswordIcon from "./PasswordIcon/PasswordIcon.jsx";
 
 export default class LoginInput extends Component {
@@ -50,7 +51,7 @@ export default class LoginInput extends Component {
       }
     }
     // get the form group, consisting of label and input
-    const formGroup = e.target.closest("div.formGroup");
+    const formGroup = e.target.closest("div.li_formGroup");
     // set the input
     const input = formGroup.querySelector("input");
     // switch input from text to password accordingly
@@ -71,7 +72,7 @@ export default class LoginInput extends Component {
     }
 
     return (
-      <div className={styles.formGroup + " formGroup"}>
+      <div className={"li_formGroup"}>
         <label htmlFor="" onClick={this.labelSelectorHandler.bind(this)}>{this.props.label}</label>
         {eyeIcon}
         <input

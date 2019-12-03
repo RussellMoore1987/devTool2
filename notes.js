@@ -1,4 +1,14 @@
 // notes for devTool
+    // TODO: 
+        // cookie storage to save authentication token??? security risks
+            // authentication token also tracks
+                // IP address
+                // location
+                // authentication token
+                // and any other measure to make sure they're logging in from the exact same computer and same location 
+        // store other settings in cookies full-screen, dark mode
+
+
     // lesson 35 Working with Props
     // lesson 36 Understanding the Children Property
 

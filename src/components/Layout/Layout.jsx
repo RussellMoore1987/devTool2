@@ -21,7 +21,7 @@ export default class Layout extends Component {
     // Determine whether or not we are logged in and rendered accordingly
     let layout = null;
     switch (this.context.loggedIn) {
-      case true: layout = <DashBoard />; break;
+      case false: layout = <DashBoard />; break;
       default: layout = <LoginLayout />; break;
     }
 
@@ -41,7 +41,7 @@ export default class Layout extends Component {
     */  
 
     return (
-      <div style={formBackground } className="l_mainLayout">
+      <div style={formBackground} className="l_mainLayout">
         {modal}
         {layout}  
       </div>

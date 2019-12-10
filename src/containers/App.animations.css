@@ -9,3 +9,7 @@
     opacity: 0;
     transform: translateY(100px);
 }
+
+.transition-400 {
+    transition: all 400ms ease-in-out;
+}

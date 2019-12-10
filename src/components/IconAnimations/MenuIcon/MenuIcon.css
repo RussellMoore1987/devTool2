@@ -1,0 +1,79 @@
+.menuIconContainer {
+    cursor: pointer;
+}
+
+.menuIcon {
+    width: 30px;
+}
+
+.menuIcon .cls-1 {
+    stroke:#c4c4c4;
+    stroke-linecap:round;
+    stroke-miterlimit:10;
+    stroke-width:2px;
+    fill:none;
+    transition: all 400ms ease-in-out;
+}
+
+.darkMode .menuIcon .cls-1 {
+    stroke:#707070;
+}
+
+/* animations ========================================================= */
+
+/* menu stage 1 */
+.menuIcon .smallBar {
+    stroke-dasharray: 11 100;
+    stroke-dashoffset: 0;
+}
+
+.menuIcon .path {
+    stroke-dasharray: 13 100;
+    stroke-dashoffset: -12;
+}
+
+.menuIcon .main {
+    stroke-dasharray: 25 100;
+    stroke-dashoffset: -12;
+}
+
+/* menu stage 2 */
+.menuStage2 .menuIcon .smallBar {
+    stroke-dasharray: 25 100;
+    stroke-dashoffset: 18;
+}
+
+/* menu stage 3 */
+.menuStage3 .menuIcon .smallBar {
+    stroke-dasharray: 2 100;
+    stroke-dashoffset: -25;
+}
+
+.menuStage3 .menuIcon .main {
+    stroke-dasharray: 25 100;
+    stroke-dashoffset: 0;
+    transition-delay: 200ms;
+}
+
+.menuStage3 .menuIcon .path {
+    stroke-dasharray: 12 100;
+    stroke-dashoffset: -57;
+    transition-delay: 200ms;
+}
+
+/* menu stage 4 */
+.menuStage4 .menuIcon .smallBar {
+    stroke-dasharray: 11 100;
+    stroke-dashoffset: 0;
+    transition-delay: 150ms;
+}
+
+.menuStage4 .menuIcon .path {
+    stroke-dasharray: 13 100;
+    stroke-dashoffset: -12;
+}
+
+.menuStage4 .menuIcon .main {
+    stroke-dasharray: 25 100;
+    stroke-dashoffset: -12;
+}

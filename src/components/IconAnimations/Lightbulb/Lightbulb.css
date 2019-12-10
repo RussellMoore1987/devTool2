@@ -1,0 +1,151 @@
+.lightbulbIcon {
+    z-index: 10;
+    width: 28px;
+    margin: 1px 0 1px 6px;
+}
+
+.lightbulbIcon .cls-1 {
+    fill:#707070;
+    opacity: 0;
+}
+
+.lightbulbIcon .cls-1,
+.lightbulbIcon .cls-2,
+.lightbulbIcon .cls-3,
+.lightbulbIcon .cls-4 {
+    stroke:#c4c4c4;
+    stroke-miterlimit:10;
+    transition: all 400ms ease-in-out;
+}
+
+.lightbulbIcon .cls-2,
+.lightbulbIcon .cls-3,
+.lightbulbIcon .cls-4 {
+    fill:none;
+}
+
+.lightbulbIcon .cls-1,
+.lightbulbIcon .cls-2,
+.lightbulbIcon .cls-3,
+.lightbulbIcon .cls-4 {
+    stroke-width:2px;
+}
+
+.lightbulbIcon .cls-2,
+.lightbulbIcon .cls-4 {
+    stroke-linecap:round;
+}
+
+.lightbulbIconFragments-polygon,
+.lightbulbIconFragments-triangle {
+    position: absolute;
+    width: 5px;
+    margin: 0;
+    opacity: 0;
+    stroke:#7e7e7e;
+    stroke-miterlimit:10;
+    fill:none;
+    transform-origin: center;
+    transition: all 800ms cubic-bezier(0.11, 0.43, 0.61, 0.96);
+}
+
+/* polygon fragments */
+.lightbulbIconFragments-polygon.p1 {
+    width: 6px;
+    margin: 1px 0px 1px 8px;
+}
+
+.lightbulbIconFragments-polygon.p2 {
+    width: 3px;
+    margin: 1px 0px 1px -7px;
+}
+
+/* triangle fragments */
+.lightbulbIconFragments-triangle.t1 {
+    width: 4px;
+    margin: -4px 0px 0px -7px;
+}
+
+.lightbulbIconFragments-triangle.t2 {
+    width: 5px;
+    margin: 5px 0px 0px -5px;
+}
+
+.lightbulbIconFragments-triangle.t3 {
+    width: 6px;
+    margin: -4px 0px 0px 7px;
+}
+
+.lightbulbIconFragments-triangle.t4 {
+    width: 4px;
+    margin: -7px 0px 0px -1px;
+}
+
+.lightbulbIconFragments-triangle.t5 {
+    width: 3px;
+    margin: 6px 0px 0px 6px;
+}
+
+/* light on */
+.lightMode .lightbulbIconFragments-polygon,
+.lightMode .lightbulbIconFragments-triangle {
+    animation: Fragment 800ms cubic-bezier(0.11, 0.43, 0.61, 0.96) forwards;
+}
+
+.lightMode .lightbulbIconFragments-polygon.p1 {
+    transform: rotate(360deg);
+    margin: 1px 0 1px 19px;
+}
+
+.lightMode .lightbulbIconFragments-polygon.p2 {
+    transform: rotate(180deg);
+    margin: 1px 0px 1px -22px;
+}
+
+.lightMode .lightbulbIconFragments-triangle.t1 {
+    transform: rotate(180deg);
+    margin: -10px 0px 0px -16px;
+}
+
+.lightMode .lightbulbIconFragments-triangle.t2 {
+    transform: rotate(360deg);
+    margin: 5px 0px 0px -20px;
+}
+
+.lightMode .lightbulbIconFragments-triangle.t3 {
+    transform: rotate(180deg);
+    margin: -9px 0px 0px 22px;
+}
+
+.lightMode .lightbulbIconFragments-triangle.t4 {
+    transform: rotate(145deg);
+    margin: -17px 0px 0px 2px;
+}
+
+.lightMode .lightbulbIconFragments-triangle.t5 {
+    transform: rotate(90deg);
+    margin: 12px 0px 0px 12px;
+}
+
+@keyframes Fragment {
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;  
+    }
+}
+
+/* light off */
+.darkMode .lightbulbIcon .cls-1 {
+    opacity: 1;
+}
+
+.darkMode .lightbulbIcon .cls-1,
+.darkMode .lightbulbIcon .cls-4 {
+    stroke:#a7a7a7;
+}
+
+.darkMode .lightbulbIcon .cls-2,
+.darkMode .lightbulbIcon .cls-3 {
+    stroke:#707070;
+}

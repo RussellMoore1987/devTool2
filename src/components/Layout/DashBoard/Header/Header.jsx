@@ -1,30 +1,25 @@
 import React from 'react'
 // CSS
 import './Header.css';
-// assets
-import logo from "../../../../assets/images/lightLogo.png";
-import menu from "../../../../assets/images/menu.png";
-import sizeIcon from "../../../../assets/images/full_screen.png";
-import light from "../../../../assets/images/light_lightbulb.png";
+// components
+import MenuIcon from "../../../IconAnimations/MenuIcon/MenuIcon.jsx";
+import FullScreenIcon from "../../../IconAnimations/FullScreenIcon/FullScreenIcon.jsx";
+import Lightbulb from "../../../IconAnimations/Lightbulb/Lightbulb.jsx";
 
-export default function Header() {
+
+export default function Header(props) {
   return (
     <header className="header">
-      <div className="header_left_container">
-        <img src={menu} className="header_menu" alt="menu"/>
-      </div>
       <div className="header_logo_container">
-        <img src={logo} className="header_logo" alt="Core Integration DevTool Logo"/>
+        <img src={props.logo} className="header_logo" alt="Core Integration DevTool Logo"/>
+      </div>
+      <div className="header_left_container">
+        <MenuIcon />
       </div>
       <div className="header_right_container">
-        <div className="header_lightBulb_toggle">
-          <div>
-            <img src={light} className="header_light" alt="light of lightbulb"/>
-            <i className="far fa-lightbulb"></i>
-          </div>
-        </div>
+          <Lightbulb click={props.click}/>
         <div>
-          <img src={sizeIcon} className="header_sizeIcon" alt="sizeIcon"/>
+          <FullScreenIcon />
         </div>
       </div>
     </header>

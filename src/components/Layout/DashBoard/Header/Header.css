@@ -1,4 +1,5 @@
 .header {
+    z-index: 4;
     position: absolute;
     top: 0;
     left: 0;
@@ -7,8 +8,9 @@
     justify-content: space-between;
     height: 75px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--header-color, #ffffff);
     box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.12);
+    transition: all 400ms ease-in-out;
 }
 
 .header_logo_container {
@@ -24,13 +26,18 @@
 
 .header_logo {
     height: 60px;
+    cursor: pointer;
 }
 
 .header_left_container {
-    padding-left: 40px;
+    position: absolute;
+    left: 0;
+    padding-left: 37px;
 }
 
 .header_right_container {
+    position: absolute;
+    right: 0;
     padding-right: 25px;
 }
 
@@ -51,6 +58,12 @@
     background-color: #F1F1F3;
     width: 114px;
     border-radius: 20px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+}
+
+.darkMode .header_lightBulb_toggle {
+    background-color: #1B191C;
 }
 
 .header_lightBulb_toggle div {
@@ -59,13 +72,19 @@
     right: 0;
     height: 28px;
     width: 56px;
-    background-color: #ffffff;
+    background-color: var(--header-color, #ffffff);
     border-radius: 20px;
     border: 1px solid #E3E3E3;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 400ms ease-in-out;
 }
+
+.darkMode .header_lightBulb_toggle div {
+    right: 56px;
+    border: 1px solid #1B191C;
+}    
 
 .header_lightBulb_toggle img {
     position: absolute;

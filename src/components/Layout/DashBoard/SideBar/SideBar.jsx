@@ -4,8 +4,13 @@ import './SideBar.css';
 
 export default function SideBar() {
     return (
-        <div className="sideBar">
-            
+        <div>
+            <div className="sideBar">
+                
+            </div>
+            <div className="subSideBar">
+                
+            </div>
         </div>
     )
 }

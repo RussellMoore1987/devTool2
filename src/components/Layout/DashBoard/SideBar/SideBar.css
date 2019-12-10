@@ -1,9 +1,33 @@
 .sideBar {
+    z-index: 3;
     position: absolute;
     top: 0;
-    left: 0;
+    left: -105px;
     height: 100%;
     width: 95px;
-    background-color: #ffffff;
+    background-color: var(--side-bar-color, #ffffff);
     box-shadow: 11px 8px 13px rgba(0, 0, 0, 0.12);
+    transition: all 400ms ease-in-out;
+}
+
+.menuStage2 .sideBar,
+.menuStage3 .sideBar {
+    left: 0;
+}
+
+.subSideBar {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: -310px;
+    height: 100%;
+    width: 300px;
+    background-color: var(--side-bar-color, #ffffff);
+    box-shadow: 11px 8px 13px rgba(0, 0, 0, 0.12);
+    transition: all 400ms ease-in-out;
+}
+
+
+.menuStage3 .subSideBar {
+    left: 0;
 }

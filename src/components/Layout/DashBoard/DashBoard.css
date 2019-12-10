@@ -7,10 +7,10 @@
     width: 80%;
     overflow: hidden;
     border-radius: 20px;
-    background-color: #F1F1F3;
+    background-color: var(--dashBoard-bg-color, #F1F1F3);
     opacity: 0;
     transform: translateY(100px);
-    transition: all 600ms ease-in-out, opacity 800ms ease-in-out, transform 800ms ease-in-out;
+    transition: all 600ms ease-in-out, opacity 800ms ease-in-out, transform 800ms ease-in-out, background-color 400ms ease-in-out;
 }
 
 .mainDashBoard.fullWidth {

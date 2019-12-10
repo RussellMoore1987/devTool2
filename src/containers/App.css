@@ -5,6 +5,15 @@ body {
     /* setting main CSS variables */
     --main-title-color: #9E9E9E;
     --main-text-color: #AFAFAF;
+    --header-color: #ffffff;
+    --side-bar-color: #ffffff;
+    --dashBoard-bg-color: #F1F1F3;
+}
+
+.mainDashBoard.darkMode {
+    --header-color: #242225;
+    --side-bar-color: #242225;
+    --dashBoard-bg-color: #1B191C;
 }
 
 /* text CSS */

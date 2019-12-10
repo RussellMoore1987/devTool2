@@ -41,12 +41,15 @@
     // Docs
     // https://reactcommunity.org/react-transition-group/
 
+    // Icon animations ???
+    // https://www.npmjs.com/package/react-lottie
+
     // get started do normal videos
 // notes for Recipe app
 
 
-// start 
-    // 30
+// ! start videos
+    // in resources project, React/_notes.js
 
 
 

@@ -1,0 +1,62 @@
+.fullScreenIcon {
+    width: 27px;
+    cursor: pointer;
+}
+
+.fullScreenIcon .cls-1,
+.fullScreenIcon .cls-2{
+    transition: all 600ms ease-in-out, fill 400ms ease-in-out, stroke 400ms ease-in-out;
+}
+
+.fullScreenIcon .cls-3 {
+    transition-delay: 50ms;
+}
+.fullScreenIcon .cls-4 {
+    transition-delay: 100ms;
+}
+.fullScreenIcon .cls-5 {
+    transition-delay: 50ms;
+}
+.fullScreenIcon .cls-6 {
+    transition-delay: 100ms;
+}
+
+.fullScreenIcon .cls-1{
+    fill:#ececec;
+    width: 20px; 
+    height: 20px;
+    transform: scale(.85);
+    transform-origin: center;
+}
+
+.darkMode .fullScreenIcon .cls-1{
+    fill:#363636;
+}
+
+.fullScreenIcon .cls-2{
+    fill:none;
+    stroke:#C4C4C4;
+    stroke-miterlimit:10;
+    stroke-width:2px;
+}
+
+.darkMode .fullScreenIcon .cls-2{
+    stroke:#707070;
+}
+
+/* Toggle to full screen */
+.fullScreenIcon .cls-2 {
+    stroke-dasharray: 18 100;
+    stroke-dashoffset: -3;
+}
+
+/* Toggle to minify screen */
+.fullWidth .fullScreenIcon .cls-2 {
+    stroke-dasharray: 17 100;
+    stroke-dashoffset: -51;
+}
+
+.fullWidth .fullScreenIcon .cls-1{
+    transform: scale(0);
+}
+

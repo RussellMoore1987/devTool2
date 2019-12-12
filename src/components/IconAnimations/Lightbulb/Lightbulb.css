@@ -16,6 +16,7 @@
     stroke:#c4c4c4;
     stroke-miterlimit:10;
     transition: all 400ms ease-in-out;
+
 }
 
 .lightbulbIcon .cls-2,
@@ -42,7 +43,7 @@
     width: 5px;
     margin: 0;
     opacity: 0;
-    stroke:#7e7e7e;
+    stroke:#2b2b2b;
     stroke-miterlimit:10;
     fill:none;
     transform-origin: center;
@@ -94,37 +95,37 @@
 
 .lightMode .lightbulbIconFragments-polygon.p1 {
     transform: rotate(360deg);
-    margin: 1px 0 1px 19px;
+    margin: 1px -24px 1px 22px;
 }
 
 .lightMode .lightbulbIconFragments-polygon.p2 {
     transform: rotate(180deg);
-    margin: 1px 0px 1px -22px;
+    margin: 1px 22px 1px -22px;
 }
 
 .lightMode .lightbulbIconFragments-triangle.t1 {
     transform: rotate(180deg);
-    margin: -10px 0px 0px -16px;
+    margin: -10px 20px 10px -16px;
 }
 
 .lightMode .lightbulbIconFragments-triangle.t2 {
     transform: rotate(360deg);
-    margin: 5px 0px 0px -20px;
+    margin: 8px 22px -10px -20px;
 }
 
 .lightMode .lightbulbIconFragments-triangle.t3 {
     transform: rotate(180deg);
-    margin: -9px 0px 0px 22px;
+    margin: -9px -22px 12px 22px;
 }
 
 .lightMode .lightbulbIconFragments-triangle.t4 {
     transform: rotate(145deg);
-    margin: -17px 0px 0px 2px;
+    margin: -17px 0px 22px 2px;
 }
 
 .lightMode .lightbulbIconFragments-triangle.t5 {
     transform: rotate(90deg);
-    margin: 12px 0px 0px 12px;
+    margin: 12px -19px -12px 19px;
 }
 
 @keyframes Fragment {

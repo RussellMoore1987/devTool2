@@ -12,7 +12,7 @@
     stroke-miterlimit:10;
     stroke-width:2px;
     fill:none;
-    transition: all 400ms ease-in-out;
+    transition: all 400ms ease-in-out, stroke 400ms ease-in-out;
 }
 
 .darkMode .menuIcon .cls-1 {
@@ -52,20 +52,20 @@
 .menuStage3 .menuIcon .main {
     stroke-dasharray: 25 100;
     stroke-dashoffset: 0;
-    transition-delay: 200ms;
+    transition: stroke-dasharray 400ms ease-in-out 200ms, stroke-dashoffset 400ms ease-in-out 200ms, stroke 400ms ease-in-out;
 }
 
 .menuStage3 .menuIcon .path {
     stroke-dasharray: 12 100;
     stroke-dashoffset: -57;
-    transition-delay: 200ms;
+    transition: stroke-dasharray 400ms ease-in-out 200ms, stroke-dashoffset 400ms ease-in-out 200ms, stroke 400ms ease-in-out;
 }
 
 /* menu stage 4 */
 .menuStage4 .menuIcon .smallBar {
     stroke-dasharray: 11 100;
     stroke-dashoffset: 0;
-    transition-delay: 150ms;
+    transition: stroke-dasharray 400ms ease-in-out 150ms, stroke-dashoffset 400ms ease-in-out 150ms, stroke 400ms ease-in-out;
 }
 
 .menuStage4 .menuIcon .path {

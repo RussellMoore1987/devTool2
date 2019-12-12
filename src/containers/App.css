@@ -1,19 +1,23 @@
 /* global CSS here */
 body {
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
     /* setting main CSS variables */
+    --main-color: #F89C1B;
     --main-title-color: #9E9E9E;
     --main-text-color: #AFAFAF;
     --header-color: #ffffff;
     --side-bar-color: #ffffff;
     --dashBoard-bg-color: #F1F1F3;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    color: var(--main-text-color, #AFAFAF);
 }
 
 .mainDashBoard.darkMode {
+    --main-text-color: #707070;
     --header-color: #242225;
     --side-bar-color: #242225;
     --dashBoard-bg-color: #1B191C;
+    color: var(--main-text-color, #707070);
 }
 
 /* text CSS */

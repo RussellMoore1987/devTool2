@@ -1,0 +1,62 @@
+.sideBar .menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 95px;
+    width: 95px;
+    border: 1px solid #E9E7E7; 
+    border-width: 0px 0px 1px 0px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 400ms ease-in-out;
+}
+
+.sideBar .menuItem img{
+    margin-bottom: 7px;
+}
+
+.darkMode .sideBar .menuItem {
+    border-color: #313131;
+}
+
+.sideBar .menuItem span {
+    color: var(--main-text-color, #AFAFAF);
+    transition: color 400ms ease-in-out;
+}
+
+.darkMode .sideBar .menuItem span {
+    color: var(--main-text-color, #707070);
+}
+
+
+.sideBar .menuItem span.active {
+    color: var(--main-color, #F89C1B);
+}
+
+.dbIcon, 
+.settingIcon, 
+.documentationIcon {
+    fill: var(--main-text-color, #707070) !important;
+    transition: all 400ms ease-in-out;
+}
+
+.sideBar .menuItem:hover {
+    background-color: var(--main-color, #F89C1B);
+}
+
+.sideBar .menuItem.active:hover {
+    background-color: transparent;
+}
+
+.sideBar .menuItem.active:hover span {
+    color: var(--main-color, #F89C1B);
+}
+
+.sideBar .menuItem:hover svg {
+    fill: #ffffff !important;
+}
+
+.sideBar .menuItem:hover span {
+    color: #ffffff;
+}

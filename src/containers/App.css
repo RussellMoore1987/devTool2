@@ -29,6 +29,15 @@ i {
     color: var(--main-text-color, #AFAFAF);   
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: var(--main-text-color, #AFAFAF);
+    transition: all 400ms ease-in-out;
+}
+
+.darkMode h1, .darkMode h2, .darkMode h3, .darkMode h4, .darkMode h5, .darkMode h6 {
+    color: var(--main-text-color, #707070); 
+}
+
 /* buttons */
 .dt-btn {
    border: unset;

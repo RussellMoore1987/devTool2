@@ -8,11 +8,11 @@ export default function SettingIcon(props) {
       <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="38.072" height="29.803" viewBox="0 0 38.072 29.803" className="settingIcon">
         <defs>
           <linearGradient id="settingIcon-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
-            <stop offset="0" stop-color="#f36a10" />
-            <stop offset="0.168" stop-color="#f4720e" />
-            <stop offset="0.441" stop-color="#f68b0a" />
-            <stop offset="0.784" stop-color="#fbb204" />
-            <stop offset="1" stop-color="#ffcf00" />
+            <stop offset="0" stopColor="#f36a10" />
+            <stop offset="0.168" stopColor="#f4720e" />
+            <stop offset="0.441" stopColor="#f68b0a" />
+            <stop offset="0.784" stopColor="#fbb204" />
+            <stop offset="1" stopColor="#ffcf00" />
           </linearGradient>
         </defs>
         <g id="Group_617" data-name="Group 617" transform="translate(-2328.391 2136.376)">

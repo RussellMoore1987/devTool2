@@ -6,7 +6,7 @@ import DbIcon from './MenuIcons/DbIcon.jsx';
 import DocumentationIcon from './MenuIcons/DocumentationIcon.jsx';
 import SettingIcon from './MenuIcons/SettingIcon.jsx';
 
-export default function MenuItem(props) {
+export default function MenuItem(props) {    
     // setting default icon
     let icon = DbIcon;
     // get Icon

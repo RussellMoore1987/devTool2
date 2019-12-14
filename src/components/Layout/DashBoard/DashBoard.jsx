@@ -22,6 +22,11 @@ export default class DashBoard extends Component {
     // switch logo, this function is triggered in the lightbulb component in the header
     this.setState({lightLogo: !this.state.lightLogo})      
   }
+
+  componentDidUpdate = () => {
+    // ! possibly do page transition on component did update
+    // console.log("dsfjkhkjlsdhklh");
+  };
   
   render() {
 
@@ -36,9 +41,10 @@ export default class DashBoard extends Component {
       document.querySelector(".mainDashBoard").classList.add('panel-fade-in');  
     }, 400);
 
+    
     return (
       <div className="mainDashBoard">
-        <SideBar />
+        <SideBar path={this.props.location.pathname}/>
         <Header logo={logo} click={this.switchLogoHandling}/>
         <PageTransitions />
         <MainPanel />

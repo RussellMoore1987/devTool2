@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 // components
 import GlobalState from "../context/GlobalState";
 import Layout from "../components/Layout/Layout.jsx";
@@ -9,7 +10,9 @@ import './App.animations.css';
 function App() {
   return (
     <GlobalState>
-      <Layout/>
+      <BrowserRouter>
+        <Layout/>
+      </BrowserRouter>
     </GlobalState>
   );
 }

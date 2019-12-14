@@ -1,5 +1,6 @@
 // packages
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 // context
 import ShopContext from '../../context/shop-context'
 // components
@@ -21,8 +22,8 @@ export default class Layout extends Component {
     // Determine whether or not we are logged in and rendered accordingly
     let layout = null;
     switch (this.context.loggedIn) {
-      case false: layout = <DashBoard />; break;
-      default: layout = <LoginLayout />; break;
+      case false: layout = DashBoard; break;
+      default: layout = LoginLayout; break;
     }
 
     // Determine whether or not to show modal
@@ -39,11 +40,11 @@ export default class Layout extends Component {
       - If the model is there it will appear
       - The two different layouts are dashboard and log
     */  
-
+    /* this route should let everything through. It passes along information for the side panel navigation */
     return (
       <div style={formBackground} className="l_mainLayout">
         {modal}
-        {layout}  
+        <Route to="/" component={layout} /> 
       </div>
     )
   }

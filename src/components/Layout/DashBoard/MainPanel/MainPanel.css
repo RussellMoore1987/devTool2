@@ -1,0 +1,17 @@
+.mainPanel {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    padding: 85px 40px 0px 40px;
+    box-sizing: border-box;
+    transition: all 400ms ease-in-out;
+}
+
+.menuStage2 .mainPanel {
+    padding: 85px 40px 0px 135px;
+}
+.menuStage3 .mainPanel {
+    padding: 85px 40px 0px 335px;
+}

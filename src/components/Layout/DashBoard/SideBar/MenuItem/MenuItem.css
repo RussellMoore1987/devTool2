@@ -12,6 +12,10 @@
     transition: all 400ms ease-in-out;
 }
 
+.sideBar a {
+    text-decoration: none;
+}
+
 .sideBar .menuItem img{
     margin-bottom: 7px;
 }
@@ -30,7 +34,7 @@
 }
 
 
-.sideBar .menuItem span.active {
+.sideBar .active .menuItem span {
     color: var(--main-color, #F89C1B);
 }
 
@@ -45,11 +49,11 @@
     background-color: var(--main-color, #F89C1B);
 }
 
-.sideBar .menuItem.active:hover {
+.sideBar .active .menuItem:hover {
     background-color: transparent;
 }
 
-.sideBar .menuItem.active:hover span {
+.sideBar .active .menuItem:hover span {
     color: var(--main-color, #F89C1B);
 }
 

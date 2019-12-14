@@ -9,16 +9,16 @@
 }
 
 .fullScreenIcon .cls-3 {
-    transition: stroke-dasharray 400ms ease-in-out 50ms, stroke-dashoffset 400ms ease-in-out 50ms, stroke 400ms ease-in-out, fill 400ms ease-in-out;
+    transition: stroke-dasharray 600ms ease-in-out, stroke-dashoffset 600ms ease-in-out, stroke 400ms ease-in-out, fill 400ms ease-in-out;
 }
 .fullScreenIcon .cls-4 {
-    transition: stroke-dasharray 400ms ease-in-out 100ms, stroke-dashoffset 400ms ease-in-out 100ms, stroke 400ms ease-in-out, fill 400ms ease-in-out;
+    transition: stroke-dasharray 600ms ease-in-out, stroke-dashoffset 600ms ease-in-out, stroke 400ms ease-in-out, fill 400ms ease-in-out;
 }
 .fullScreenIcon .cls-5 {
-    transition: stroke-dasharray 400ms ease-in-out 50ms, stroke-dashoffset 400ms ease-in-out 50ms, stroke 400ms ease-in-out, fill 400ms ease-in-out;
+    transition: stroke-dasharray 600ms ease-in-out, stroke-dashoffset 600ms ease-in-out, stroke 400ms ease-in-out, fill 400ms ease-in-out;
 }
 .fullScreenIcon .cls-6 {
-    transition: stroke-dasharray 400ms ease-in-out 100ms, stroke-dashoffset 400ms ease-in-out 100ms, stroke 400ms ease-in-out, fill 400ms ease-in-out;
+    transition: stroke-dasharray 600ms ease-in-out, stroke-dashoffset 600ms ease-in-out, stroke 400ms ease-in-out, fill 400ms ease-in-out;
 }
 
 .fullScreenIcon .cls-1{

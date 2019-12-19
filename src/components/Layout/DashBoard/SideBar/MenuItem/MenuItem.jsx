@@ -21,7 +21,7 @@ export default function MenuItem(props) {
     const propClassName = props.active ? "active" : "";
 
     return (
-        <div className={"menuItem " + propClassName}>
+        <div className={"menuItem " + propClassName} data-type={props.icon} onMouseOver={props.hover}>
           {icon}
           <span className={propClassName}>{props.name}</span>
         </div>

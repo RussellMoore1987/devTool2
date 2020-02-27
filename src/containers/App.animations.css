@@ -10,6 +10,13 @@
     transform: translateY(100px);
 }
 
-.transition-400 {
-    transition: all 400ms ease-in-out;
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+.page-fade-in {
+    opacity: 1;
+    margin-top: 0px;
 }

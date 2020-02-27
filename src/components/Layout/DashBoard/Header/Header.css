@@ -97,3 +97,8 @@
     font-size: 20px;
 }
 
+@media screen and (max-width: 560px) {
+    .header_right_container {
+        display: none;
+    }
+}

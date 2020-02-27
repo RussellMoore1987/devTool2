@@ -36,28 +36,24 @@ export default class LoginLayout extends Component {
     // construct the instructions for core integration context API
     const instructions_str = {
       login: {
-        "type": "devTool",
-        "method": "devTool_login",
-        "data": {
+        "devTool::devTool_login": {
+          "data": {
             // test
             "username": username,
             // Test@the9
             "password": password 
+          }
         }
-      },
-      tables: {
-        "type": "devTool",
-        "method": "devTool_get_all_tables",
-        "data": ""
       }
     };
     // put request in to form data
     const formData = new FormData();
     formData.append('instructions', JSON.stringify(instructions_str));
+    
     // make the call to the core integration context API
     axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
       .then(response => {
-        console.log("contextApi got it", response);
+        // console.log("contextApi got it", response);
         // check for a good response
         if (response.status === 200) {
           // check for errors
@@ -128,7 +124,7 @@ export default class LoginLayout extends Component {
 
     return (
       <div className={"ll_loginContainer"}>
-        <div style={messageBackground} className={"ll_loginMessage"}>
+        <div style={messageBackground} className={"ll_loginMessage whiteText"}>
           <h1>Imagine It, Plan It, Create It</h1>
           <p>The power to do amazing things is within you. What amazing things will you make today?</p>
         </div>

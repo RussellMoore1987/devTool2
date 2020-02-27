@@ -1,12 +1,12 @@
 // packages
-import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 // context
-import ShopContext from '../../context/shop-context'
+import ShopContext from '../../context/shop-context';
 // components
-import MainModal from '../MainModal/MainModal.jsx'
-import LoginLayout from './LoginLayout/LoginLayout.jsx'
-import DashBoard from './DashBoard/DashBoard.jsx'
+import MainModal from '../MainModal/MainModal.jsx';
+import LoginLayout from './LoginLayout/LoginLayout.jsx';
+import DashBoard from './DashBoard/DashBoard.jsx';
 // CSS
 // CSS component indicator: LoginLayout = l_(class or id)
 import './Layout.css';
@@ -22,6 +22,8 @@ export default class Layout extends Component {
     // Determine whether or not we are logged in and rendered accordingly
     let layout = null;
     switch (this.context.loggedIn) {
+      // TODO: remove later
+      // ! change from false to true to get pass login
       case false: layout = DashBoard; break;
       default: layout = LoginLayout; break;
     }

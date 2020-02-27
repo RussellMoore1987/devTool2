@@ -1,0 +1,44 @@
+.DBDashBoard {
+    opacity: 0;
+    margin-top: 100px;
+    transition: all 400ms ease-in-out, opacity 800ms ease-in-out, margin-top 800ms ease-in-out;
+}
+
+.DBDashBoard .chartDetails h2 {
+    margin-top: 0px;
+}
+
+.DBDashBoard .chartDetails p {
+    margin-bottom: 2px;
+}
+
+.DBDashBoard .donutChart {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.tableColumnGrid :nth-child(1) {
+    width: 35%;
+    min-width: 150px;
+}
+
+.tableColumnGrid :nth-child(2) {
+    width: 60%;
+    min-width: 250px;
+}
+
+.table-column-view {
+    max-height: 400px;
+    overflow: hidden auto;
+    overflow-x: auto;
+}
+
+.table-column-view > div {
+    padding: 0px 10px 10px 10px;
+    box-sizing: border-box;
+    min-width: 440px;
+}
+
+.table-column-view.linking-tables {
+    max-height: 200px;
+}

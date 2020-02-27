@@ -6,7 +6,9 @@ export default function FullScreenIcon() {
   const fullScreenHandler = () => {
     const dashboard = document.querySelector(".mainDashBoard");
     // toggle class on and off
-    dashboard.classList.toggle("fullWidth")
+    dashboard.classList.toggle("fullWidth");
+    const fullScreen = dashboard.classList.contains("fullWidth") ? "fullWidth" : "";
+    localStorage.setItem('fullScreen', fullScreen); 
   } 
   return (
     <div>

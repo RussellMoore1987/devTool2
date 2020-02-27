@@ -4,14 +4,30 @@
     left: 0; */
     width: 100%;
     height: 100%;
-    padding: 85px 40px 0px 40px;
+    margin-top: 75px;
+    padding: 0px 40px 90px 40px;
     box-sizing: border-box;
     transition: all 400ms ease-in-out;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.mainPanel > :first-child {
+    padding-bottom: 30px;  
 }
 
 .menuStage2 .mainPanel {
-    padding: 85px 40px 0px 135px;
+    padding: 0px 40px 90px 135px;
 }
+
 .menuStage3 .mainPanel {
-    padding: 85px 40px 0px 335px;
+    padding: 0px 40px 90px 335px;
+}
+
+@media screen and (max-width: 560px) {
+    .mainPanel,
+    .menuStage2 .mainPanel,
+    .menuStage3 .mainPanel {
+        padding: 0px 10px 90px 10px; 
+    }
 }

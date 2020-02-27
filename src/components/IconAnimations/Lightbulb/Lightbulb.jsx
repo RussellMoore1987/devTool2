@@ -8,10 +8,12 @@ export default function Lightbulb(props) {
     // check what class it has
     if (dashboard.classList.contains("darkMode")) {
       dashboard.classList.add("lightMode");    
-      dashboard.classList.remove("darkMode");   
+      dashboard.classList.remove("darkMode");  
+      localStorage.setItem('dashBoardMode', 'lightMode'); 
     } else {
       dashboard.classList.add("darkMode");
       dashboard.classList.remove("lightMode");    
+      localStorage.setItem('dashBoardMode', 'darkMode'); 
     }
     props.click()
   } 

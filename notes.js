@@ -52,6 +52,8 @@
     // in resources project, React/_notes.js
 
 
+// ! problem with edge and react project https://github.com/facebook/create-react-app/issues/8084
+
 
 
 

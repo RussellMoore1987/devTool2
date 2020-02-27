@@ -14,7 +14,7 @@ export default function Header(props) {
         <img src={props.logo} className="header_logo" alt="Core Integration DevTool Logo"/>
       </div>
       <div className="header_left_container">
-        <MenuIcon />
+        <MenuIcon click={props.menuClick}/>
       </div>
       <div className="header_right_container">
           <Lightbulb click={props.click}/>

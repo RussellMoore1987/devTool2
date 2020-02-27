@@ -1,0 +1,78 @@
+.bubbleTransition{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.bubbleTransition.topLeft .bubbleCircle {
+    top: -1200px;
+    left: -1200px;
+    transform-origin: center;
+}
+
+.bubbleTransition.topRight .bubbleCircle {
+    top: -1200px;
+    right: -1200px;
+    transform-origin: center;
+ }
+
+.bubbleTransition.bottomRight .bubbleCircle {
+    bottom: -1200px;
+    right: -1200px;
+    transform-origin: center;
+}
+
+.bubbleTransition.bottomLeft .bubbleCircle {
+    bottom: -1200px;
+    left: -1200px;
+    transform-origin: center;
+}
+
+.bubbleCircle {
+    position: absolute;
+    opacity: 1;
+    transform: scale(0);
+    height: 2500px;
+    width: 2500px;
+    border-radius: 50%;
+}
+
+.bubbleCircleAffect .bubbleCircle {
+    animation: bubble 1200ms ease-in-out forwards;    
+}
+.bubbleCircle.bubble1 {
+    animation-delay: 0ms;
+    background-color: var(--header-color, #ffffff);    
+}
+.bubbleCircle.bubble2 {
+    animation-delay: 200ms;
+    background-color: var(--main-color, #F89C1B);     
+}
+.bubbleCircle.bubble3 {
+    animation-delay: 300ms;
+    background-color: var(--dashBoard-bg-color, #F1F1F3) ;    
+}
+.bubbleCircle.bubble4 {
+    animation-delay: 400ms;
+    background-color: var(--main-text-color, #AFAFAF);     
+}
+.bubbleCircle.bubble5 {
+    animation-delay: 600ms;
+    background-color: var(--header-color, #ffffff);     
+}
+
+@keyframes bubble {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.9);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.9);
+    }
+}

@@ -1,5 +1,6 @@
 ### `This Project`
-left information here for reference. This is a developer tools to help with open source framework.
+This is a developer tool to help with our open source framework.
+I left information here for reference. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

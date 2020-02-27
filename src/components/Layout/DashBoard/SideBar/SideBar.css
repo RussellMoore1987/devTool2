@@ -1,4 +1,5 @@
 .sideBarContainer {
+    z-index: 3;
     position: absolute;
     top: 0;
     left: 0;
@@ -29,10 +30,56 @@
     left: 0;
     width: 5px;
     height: 95px;
+    transform: scaleY(1);
+    transform-origin: center;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: var(--main-color, #F89C1B);
     transition: all 400ms ease-in-out;
+}
+
+.subActiveBar {
+    position: absolute;
+    top: -39px;
+    left: 97px;
+    width: 2px;
+    height: 39px;
+    transform: scaleY(1);
+    transform-origin: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: var(--main-color, #F89C1B);
+    transition: all 400ms ease-in-out;   
+}
+
+.activeBar.moving, .subActiveBar.moving  {
+    animation: activeBarMoving 800ms ease-in-out;
+}
+
+@keyframes activeBarMoving {
+    0% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(.3);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+.noSubMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 10px 10px 10px 15px;
+    opacity: 0;
+    box-sizing: border-box;
+    font-size: 22px;
+    font-weight: bold;
+    transition: all 400ms ease-in-out, color 400ms ease-in-out;
+    animation: fade-in 1000ms ease-in-out forwards;
 }
 
 .menuStage2 .sideBar,
@@ -48,13 +95,13 @@
     height: calc(100% - 75px);
     width: 300px;
     margin-top: 75px;
-    padding-left:96px;
+    padding-left: 96px;
     background-color: var(--side-bar-color, #ffffff);
     box-shadow: 11px 8px 13px rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     overflow: hidden;
     overflow-y: auto;
-    transition: all 400ms ease-in-out;
+    transition: all 400ms ease-in-out, left 600ms ease-in-out;
 }
 
 
@@ -65,15 +112,22 @@
 
 .subMenuItem {
     position: relative;
+    display: flex;
+    align-items: center;
     border: 1px solid #ececec;
-    padding: 10px 10px 10px 15px;
+    padding: 0px 10px 0px 15px;
+    height: 40px;
     border-width: 1px 1px 0px 1px;
     opacity: 0;
     transform: translateX(100px);
+    color: var(--main-text-color, #AFAFAF);
+    box-sizing: border-box;
     transition: all 400ms ease-in-out;
     animation: subMenuItem 500ms ease-in-out forwards;
 }
+
 .darkMode .subMenuItem {
+    color: var(--main-text-color, #707070);
     border-color: #313131;
 }
 
@@ -89,19 +143,14 @@
     color: #ffffff;
 }
 
-.subSideBar a.active .subMenuItem::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 2px;
-    background-color: var(--main-color, #F89C1B);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+.subSideBar a.active .subMenuItem {
+    color: var(--main-color, #F89C1B);
 }
 
+.subSideBar a.active .subMenuItem:hover {
+    background-color: transparent;
+}
 
-.subSideBar a:last-child .subMenuItem {
+.subSideBar .subMenuItem.last {
     border-width: 1px 1px 1px 1px; 
 }

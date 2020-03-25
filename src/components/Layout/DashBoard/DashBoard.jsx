@@ -102,6 +102,7 @@ export default class DashBoard extends Component {
     
     return (
       <div className={"mainDashBoard " + applicationState} >
+        <div className="notifications"></div>
         <SideBar path={this.props.location.pathname}/>
         <Header logo={logo} click={this.switchLogoHandling} menuClick={this.displayActiveSubMenuHandling}/>
         {pageTransitions}

@@ -332,6 +332,7 @@ hr.style-3 {
 /* general items ============================================== */
 
 .card {
+    position: relative;
     display: inline-block;
     margin: 10px 0px;
     padding: 25px;
@@ -340,6 +341,10 @@ hr.style-3 {
     background-color: var(--panel-color, #ffffff);
     box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.12);
     transition: all 400ms ease-in-out;
+}
+
+.card .spinner-container {
+    border-radius: 15px;
 }
 
 .data-row {
@@ -366,6 +371,151 @@ hr.style-3 {
     display: inline-block;
     vertical-align: top;
 }
+
+/* spinner ============================================== */
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.spinner {
+    margin: 100px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+  }
+  
+  .cube1, .cube2 {
+    background-color: var(--main-color, #F89C1B);
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+    animation: sk-cubemove 1.8s infinite ease-in-out;
+  }
+  
+  .cube2 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+  }
+  
+  @-webkit-keyframes sk-cubemove {
+    25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5) }
+    50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
+    75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5) }
+    100% { -webkit-transform: rotate(-360deg) }
+  }
+  
+  @keyframes sk-cubemove {
+    25% { 
+      transform: translateX(42px) rotate(-90deg) scale(0.5);
+      -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    } 50% { 
+      transform: translateX(42px) translateY(42px) rotate(-179deg);
+      -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    } 50.1% { 
+      transform: translateX(42px) translateY(42px) rotate(-180deg);
+      -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    } 75% { 
+      transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+      -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    } 100% { 
+      transform: rotate(-360deg);
+      -webkit-transform: rotate(-360deg);
+    }
+  }
+
+/* grid/flex layout ============================================== */
+.notifications {
+    position: absolute;
+    z-index: 100;
+    bottom: 75px;
+    left: 10px;
+    min-width: 350px;
+    max-width: 600px;
+    transition: all 400ms ease-in-out;
+}
+
+.menuStage2 .notifications {
+    left: 125px;
+}
+
+.menuStage3 .notifications {
+    left: 325px;
+}
+
+.notification {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px 20px; 
+    margin: 10px 0px;
+    color: #ffffff;
+    opacity: 1;
+    transition: all 400ms ease-in-out;
+}
+
+.notification span {
+    color: #ffffff;
+}
+
+.success-notification {
+    background-color: rgba(16, 206, 16, 0.95);
+}
+
+.error-notification::selection,
+.success-notification::selection {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.error-notification {
+    background-color: rgba(255, 0, 0, 0.95);
+}
+
+.notification i:first-child {
+    color: #ffffff;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.notification i.fa-times {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: unset;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 8px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+@media screen and (max-width: 560px) {
+    .notifications,
+    .menuStage2 .notifications,
+    .menuStage3 .notifications {
+        left: 10px; 
+        min-width: 325px;
+    }
+}
+
 
 /* grid/flex layout ============================================== */
 

@@ -50,102 +50,117 @@ export default class DBDashBoard extends Component {
       if (Array.isArray(command_array)) {
         // check to see what commands we have come through, get them
         const command_obj = {};
+        // get some variables for potential objects
+        const individualTable = document.querySelector('#individualTable').value;
+        let recordCount = Number(document.querySelector('#numberOfRecords').value);
         // build objects
+        console.log('**********************',individualTable)
+
+
+
         for (let i = 0; i < command_array.length; i++) {
-          command_obj[command_array[i][0]] = command_array[i][1];
+          // do a check and see what type of command to create
+          if (command_array[i][0] === 'createTable' || command_array[i][0] === 'dropTable') {
+            // inner command name
+            const innerCommandName = command_array[i][1];
+            command_obj[command_array[i][0]] = {[innerCommandName]:individualTable};
+          } else if (command_array[i][0] === 'insertRecords') {
+            // inner command name
+            const innerCommandName = command_array[i][1];
+            // check to make sure we have a number
+            if (recordCount === 'NaN') {
+              command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable}};
+            } else {
+              command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable}};
+              command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable, seederCount:recordCount}};
+            }
+          } else {
+            command_obj[command_array[i][0]] = command_array[i][1];
+          }
         }
-        console.log(command_obj);
+{/* {"dropTable":{"devTool::devTool_drop_class_table":"post"}} */}
+                  {/* {"createTable":{"devTool::devTool_create_class_table":"post"}} */}
+                  {/* {"insertRecords":{"devTool::devTool_insert_seeder_data":{"className":"tag"}}} */}
+
+
+
+        console.log('**********************',command_obj);
         // put request in to form data
         const formData = new FormData();
         formData.append('instructions', JSON.stringify(command_obj));
         // make the call to the core integration context API
-        axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
+        axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData, {timeout: 10000})
           .then(response => {
             console.log("contextApi got it", response);
+            // we are trying to detect if were getting back a message that is not Jason
+            if (typeof response.data.statusCode === 'undefined') {
+              NotificationsCreator([{type:"error", message:response.data.trim()}]);
+            }
             // check for a good response
             if (response.status === 200) {
+              // create an array for notifications
+              const notifications_array = [];
               // loop through each one and collect messages/errors
               const object = response.data.content;
               for (const property in object) {
                 // check to see if it has a message
-                if (typeof object[property]['content']['message'] !== 'undefined') {
-                  // your code here
-                  console.log(`${property}: ${object[property]['content']['message']}`);
-                  console.log('fdhfkjhjdshkjhfkjhksdj:', object[property]['content']['message']);
+                if (typeof object[property]['content'] !== 'undefined' && typeof object[property]['content']['message'] !== 'undefined') {
                   // loop over every message
                   for (let i = 0; i < object[property]['content']['message'].length; i++) {
                     const notification = {};
                     notification.type = 'success';
                     notification.message = object[property]['content']['message'][i];
-                    notification.duration = 1500;
-                    NotificationsCreator([notification]);
+                    notifications_array.push(notification);
                   }
                 }
                 // if it does not have a message it should have an error message but still check
-                if (typeof object[property]['content']['errors'] !== 'undefined') {
-                  console.log(`${property}: ${object[property]['content']['errors']}`);
-                  // your code here
+                if (typeof object[property]['errors'] !== 'undefined') {
+                  // console.log(`${property}: ${object[property]['errors']}`);
+                  // loop over every message
+                  for (let i = 0; i < object[property]['errors'].length; i++) {
+                    const notification = {};
+                    notification.type = 'error';
+                    notification.message = object[property]['errors'][i];
+                    notifications_array.push(notification);
+                  }
                 }
-                console.log(object);
               }
+              // submit all messages to notification creator
+              NotificationsCreator(notifications_array);
+
               this.runningSqlCommand = false;
               this.removeSpinner()
               this.getData();
-              // if (obj.hasOwnProperty('foo')) {
-              //   // your code here
-              // }
-              // check for errors
-            //   if (response.data.content.tables.statusCode === 200) {
-            //     // add tables to updateStateArray
-            //     updateStateArray.tables = response.data.content.tables.content.tables;
-            //     updateStateArray.otherTables = response.data.content.otherTables.content.tables;
-            //     console.log('content', response.data.content);
-            //     console.log('tables', response.data.content.tables.content.tables);
-            //     console.log('otherTables', response.data.content.otherTables.content.tables);
-            // //     // trigger login in main state, this makes it switch to the dashboard
-            // //     setTimeout(() => {
-            // //       this.context.loginHandler();
-            // //     }, 3000);
-            // //     // set fade-out animation
-            // //     setTimeout(() => {
-            // //       document.querySelector(".ll_loginContainer").classList.add('panel-fade-out');
-            // //     }, 2000);
-            // //   } else {
-            // //     // output error messages
-            // //     console.log(response.data.content.login.errors);
-            // //     this.setState({
-            // //       error: true,
-            // //       errorMessage: response.data.content.login.errors[0],
-            // //       success: false
-            // //     })
-            //   }
             }
-            // TODO: add else ???
-    
-            // reset state
-            // this.setState({data: updateStateArray});
-          }).catch(error => { 
-            console.log("contextApi error.response", error.response);
+          }).catch((error) => { 
+            // console.log("contextApi error.response", error.response);
+            // console.log("contextApi error", error);
+            // report error if we can find it
+            const errorString = String(error);
+            if (errorString.includes("Error: timeout")) {
+              NotificationsCreator([{type:"error", message:errorString}]);
+              // check to see if SQL command is still running
+              if (this.runningSqlCommand) {
+                this.runningSqlCommand = false;
+                this.removeSpinner()
+                this.getData(); 
+                NotificationsCreator([{type:"error", message:"Timeout error occurred (10000ms), This may be an internal error or the data set you are trying to create is too large. Try it again, 2 or 3 times! If that doesn't work try reducing the size of your inserts, or running the command separately to see which one is having a problem. Also note that Postman is a great tool if you are having lots of struggles here."}]);
+              } else {
+                NotificationsCreator([{type:"error", message:errorString}]);
+              }
+            }
             this.runningSqlCommand = false;
             this.removeSpinner()
           });
-          // set a timeout error
-          setTimeout(() => {
-            // check to see if SQL command is still running
-            if (this.runningSqlCommand) {
-              this.runningSqlCommand = false;
-              this.removeSpinner()
-              this.getData(); 
-              console.log("Timeout error occurred, this may be an internal error occurred or the data set you are trying to create is too large. Try again, or try reducing the size of your inserts.");
-            }
-          }, 7000);
       } else {
+        // should only be a developer error
         console.log("no array to day...");
         this.runningSqlCommand = false;
         this.removeSpinner()
       }
     } else {
       console.log("SQL command already running must wait until it's completed...");
+      NotificationsCreator([{type:"error", message:"SQL command already running must wait until it's completed..."}]);
     }
   }
 
@@ -171,7 +186,7 @@ export default class DBDashBoard extends Component {
     // make the call to the core integration context API
     axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
       .then(response => {
-        console.log("contextApi got it", response);
+        // console.log("contextApi got it", response);
         const updateStateArray = {};
         // check for a good response
         if (response.status === 200) {
@@ -180,9 +195,9 @@ export default class DBDashBoard extends Component {
             // add tables to updateStateArray
             updateStateArray.tables = response.data.content.tables.content.tables;
             updateStateArray.otherTables = response.data.content.otherTables.content.tables;
-            console.log('content', response.data.content);
-            console.log('tables', response.data.content.tables.content.tables);
-            console.log('otherTables', response.data.content.otherTables.content.tables);
+            // console.log('content', response.data.content);
+            // console.log('tables', response.data.content.tables.content.tables);
+            // console.log('otherTables', response.data.content.otherTables.content.tables);
         //     // trigger login in main state, this makes it switch to the dashboard
         //     setTimeout(() => {
         //       this.context.loginHandler();
@@ -291,10 +306,10 @@ export default class DBDashBoard extends Component {
       // getting select options
       let selectTableOptions = <React.Fragment><option value="">No options available...</option></React.Fragment>;
       if (this.state.data.tables) { 
-        selectTableOptions = getChartData.names.map((table, index) => {
+        selectTableOptions = this.state.data.tables.map((table) => {
           return (
-            <React.Fragment key={table}>
-              <option value={index}>{table}</option>
+            <React.Fragment key={table.tableName}>
+              {table.sqlStructure ? <option value={table.className} >{table.tableName}</option> : ''}
             </React.Fragment>
           )
         }) 
@@ -302,7 +317,7 @@ export default class DBDashBoard extends Component {
         
       }
 
-      console.log("getChartData",getChartData);
+      // console.log("getChartData",getChartData);
 
       const data = {
         datasets: [{
@@ -339,7 +354,7 @@ export default class DBDashBoard extends Component {
         const otherTables_array = this.state.data.otherTables;
         // get count
         otherTableCount = otherTables_array.length;
-        console.log('log', this.state.data.otherTables);
+        // console.log('log', this.state.data.otherTables);
         // get other table layout ready  
         otherTables = otherTables_array.map((table) => {
           return (
@@ -446,16 +461,40 @@ export default class DBDashBoard extends Component {
               <hr className="style-3"/>
             </div>
             <div>
-              <select className="form-control f-40" name="" id="">
+              <select className="form-control f-40" id="individualTable">
                 {selectTableOptions}
               </select>
+              <input className="form-control f-40" id="numberOfRecords" type="text" placeholder="# of records"/>
             </div>
             <div>
-              <button className="dt-btn gray-btn small-btn">Create</button>
-              <button className="dt-btn gray-btn small-btn">Drop</button>
-              <button className="dt-btn gray-btn small-btn">Insert Records</button>
-              <button className="dt-btn gray-btn small-btn">Drop/Create</button>
-              <button className="dt-btn gray-btn small-btn">Drop/Create/Insert</button>
+              <button
+                className="dt-btn gray-btn small-btn"
+                onClick={this.dataBaseCommandHandler.bind(this, [['createTable','devTool::devTool_create_class_table']])}>
+                  Create
+                  {/* {"createTable":{"devTool::devTool_create_class_table":"post"}} */}
+              </button>
+              <button 
+                className="dt-btn gray-btn small-btn"
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table']])}>
+                  Drop 
+                  {/* {"dropTable":{"devTool::devTool_drop_class_table":"post"}} */}
+              </button>
+              <button 
+                className="dt-btn gray-btn small-btn"
+                onClick={this.dataBaseCommandHandler.bind(this, [['insertRecords','devTool::devTool_insert_seeder_data']])}>
+                  Insert Records 
+                  {/* {"insertRecords":{"devTool::devTool_insert_seeder_data":{"className":"tag"}}} */}
+              </button>
+              <button 
+                className="dt-btn gray-btn small-btn"
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table']])}>
+                  Drop/Create
+              </button>
+              <button 
+                className="dt-btn gray-btn small-btn"
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table'],['insertRecords','devTool::devTool_insert_seeder_data']])}>
+                  Drop/Create/Insert
+              </button>
             </div>
           </div>
         </div>

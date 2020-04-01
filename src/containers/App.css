@@ -443,6 +443,9 @@ hr.style-3 {
     left: 10px;
     min-width: 350px;
     max-width: 600px;
+    /* to see errors better */
+    /* max-height: 90vh; */
+    /* overflow-y: auto; */
     transition: all 400ms ease-in-out;
 }
 
@@ -458,11 +461,31 @@ hr.style-3 {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 20px 20px; 
+    padding: 20px 35px 20px 20px; 
     margin: 10px 0px;
+    width: 100%;
     color: #ffffff;
-    opacity: 1;
+    transform: translateX(0);
+    opacity: 0;
     transition: all 400ms ease-in-out;
+    animation: notification 1000ms ease-in-out forwards;
+    
+}
+.notificationLeave {
+    animation: notificationLeave 600ms ease-in-out forwards;
+}
+
+@keyframes notification {
+    25% { opacity: 0; transform: translateX(-100px);}
+    50% { opacity: .3; transform: translateX(25px);}
+    75% { opacity: .7; transform: translateX(-10px);}
+    100% { opacity: 1; transform: translateX(0px);}   
+}
+
+@keyframes notificationLeave {
+    0% { opacity: 1; transform: translateX(0px);}
+    50% { opacity: .7; transform: translateX(25px);}
+    100% { opacity: 0; transform: translateX(-100px);}   
 }
 
 .notification span {
@@ -505,6 +528,15 @@ hr.style-3 {
     height: 8px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.25);
+}
+
+.clear-all {
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
 }
 
 @media screen and (max-width: 560px) {

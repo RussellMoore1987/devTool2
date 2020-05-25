@@ -124,9 +124,9 @@ export default class LoginLayout extends Component {
 
     return (
       <div className={"ll_loginContainer"}>
-        <div style={messageBackground} className={"ll_loginMessage whiteText"}>
-          <h1>Imagine It, Plan It, Create It</h1>
-          <p>The power to do amazing things is within you. What amazing things will you make today?</p>
+        <div style={messageBackground} className={"ll_loginMessage"}>
+          <h1 className="white-text">Imagine It, Plan It, Create It</h1>
+          <p className="white-text">The power to do amazing things is within you. What amazing things will you make today?</p>
         </div>
         <div className={"ll_loginForm"}>
           <form className={formStatusClass}>

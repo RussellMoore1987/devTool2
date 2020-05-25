@@ -163,6 +163,10 @@ hr.style-3 {
     color: #ffffff;
  }
 
+.white-text {
+    color: #ffffff;
+ }
+
 /* Form ============================================== */
 
 .form-control option {
@@ -223,6 +227,10 @@ hr.style-3 {
    transition: all 400ms ease-in-out;
 }
 
+.dt-btn:disabled {
+    cursor: not-allowed;    
+}
+
 .small-btn {
     padding: 6px 12px;
     font-size: 14px;
@@ -233,9 +241,23 @@ hr.style-3 {
     color: #ffffff;  
 }
 
+.dt-btn.gray-btn:disabled,
+.dt-btn.gray-btn:disabled:hover {
+    background-color: #dbdbdb; 
+    color: #f1f1f1;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.12);    
+}
+
 .darkMode .dt-btn.gray-btn {
     background-color: #424242; 
     color: #929292;  
+}
+
+.darkMode .dt-btn.gray-btn:disabled,
+.darkMode .dt-btn.gray-btn:disabled:hover {
+    background-color: #303030; 
+    color: #414141; 
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.12); 
 }
 
 .dt-btn:hover {
@@ -272,7 +294,7 @@ hr.style-3 {
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.12); 
 }
 
-/* labels and tags ============================================== */
+/* labels, tooltips, and tags ============================================== */
 
 .grayTag {
     margin: 0px 5px;
@@ -284,6 +306,57 @@ hr.style-3 {
 
 .darkMode .grayTag {
     background-color: #313131;
+}
+
+[data-toolTip]::before {
+    position: absolute;
+    top: 41px;
+    left: calc(50% - 5px);
+    z-index: 300;
+    width: 7px;
+    height: 7px;
+    background-color: var(--userCard-tooltip-color, rgba(0, 0, 0, 0.87));
+    content: " ";
+    transform: scale(0) rotate(45deg);
+    transition: transform 100ms ease-in-out;
+}
+
+[data-toolTip] {
+    position: relative;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+}
+
+[data-toolTip]:hover::before {
+    transform: scale(1) rotate(45deg);
+    transition-delay: 1.2s;
+}
+
+[data-toolTip]::after {
+    position: absolute;
+    top: 44px; left: 0; bottom: 0; right: 0;
+    z-index: 300;
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--userCard-tooltip-color, rgba(0, 0, 0, 0.87));
+    color: var(--userCard-tooltip-text-color, #ffffff);
+    font-size: 11px;
+    text-align: center;
+    word-wrap: none;
+    content: attr(data-toolTip);
+    transform: scale(0);
+    white-space: nowrap;
+    transition: transform 100ms ease-in-out;
+}
+
+[data-toolTip]:hover::after {
+    transform: scale(1);
+    transition-delay: 1.2s;
 }
 
 /* scrollbar pieces ============================================== */

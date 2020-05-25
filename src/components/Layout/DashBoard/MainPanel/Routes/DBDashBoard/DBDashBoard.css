@@ -5,16 +5,66 @@
 }
 
 .DBDashBoard .chartDetails h2 {
-    margin-top: 0px;
+    margin: 0px 0 15px 0;
 }
 
 .DBDashBoard .chartDetails p {
-    margin-bottom: 2px;
+    margin: 10px 0 2px 0;
 }
 
 .DBDashBoard .donutChart {
     position: relative;
     margin-bottom: 30px;
+}
+
+.DBDashBoard .chartDetails .size-counter {
+    margin-bottom: 15px;
+}
+
+.DBDashBoard .chartDetails .record-count {
+    margin-bottom: 10px;
+}
+
+.DBDashBoard .chartDetails .feature-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.DBDashBoard .chartDetails .feature-list .grayTag {
+    margin: 5px 5px 5px 0;
+}
+
+.DBDashBoard .appendage-info {
+    display: inline-block;
+    margin: 5px;
+    padding: 4px 8px;
+    border: 0px solid;
+    border-left-width: 2px;
+    border-radius: 3px;
+    background-color: #F6F6F6;
+    color: var(--main-text-color, #AFAFAF);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+}
+
+.DBDashBoard .appendage-info:hover {
+    background-color: #ebebeb;
+    color: #949494;
+}
+
+.darkMode .DBDashBoard .appendage-info {
+    background-color: #313131;
+    color: var(--main-text-color, #707070);
+}
+
+.darkMode .DBDashBoard .appendage-info:hover {
+    background-color: #414141;
+    color: #cecece;
+}
+
+.DBDashBoard .appendage-info-container {
+    margin: 20px 0;
 }
 
 .tableColumnGrid :nth-child(1) {

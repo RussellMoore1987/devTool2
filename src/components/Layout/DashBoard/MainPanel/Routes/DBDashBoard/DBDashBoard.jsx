@@ -20,6 +20,10 @@ export default class DBDashBoard extends Component {
     if (e[0]) {
       // reset state
       this.setState({activeClassTable: e[0]['_index']});
+    } else if (e.target !== undefined) {
+      // console.log(e.target.dataset.index);
+      // reset state
+      this.setState({activeClassTable: e.target.dataset.index});
     }
   }
 
@@ -27,6 +31,20 @@ export default class DBDashBoard extends Component {
   componentDidMount = () => {
     // get data
     this.getData();
+  }
+
+  // @ select change handler
+  selectChangeHandler = (e) => {
+    // move over and change state to the class specified
+    for (let i = 0; i < this.state.data.tables.length; i++) {
+      const className = this.state.data.tables[i].className;
+      const classIndex = i;
+      if (className === e.target.value) {
+        // reset state
+        this.setState({activeClassTable: classIndex});
+        break;
+      }
+    }
   }
 
   // @ DB commands
@@ -52,12 +70,9 @@ export default class DBDashBoard extends Component {
         const command_obj = {};
         // get some variables for potential objects
         const individualTable = document.querySelector('#individualTable').value;
-        let recordCount = Number(document.querySelector('#numberOfRecords').value);
+        let recordCount = document.querySelector('#numberOfRecords').value;
         // build objects
         console.log('**********************',individualTable)
-
-
-
         for (let i = 0; i < command_array.length; i++) {
           // do a check and see what type of command to create
           if (command_array[i][0] === 'createTable' || command_array[i][0] === 'dropTable') {
@@ -68,8 +83,13 @@ export default class DBDashBoard extends Component {
             // inner command name
             const innerCommandName = command_array[i][1];
             // check to make sure we have a number
-            if (recordCount === 'NaN') {
+            if (isNaN(recordCount)) {
               command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable}};
+              // check to see if they tried to pass through text
+              if (recordCount !== '') {
+                // thrown an error if they did
+                NotificationsCreator([{type:"error", message:`You tryed to pass the string "${recordCount}" into the record count field. This is not allowed, only numbers! The default number of records will be created.`}]);  
+              }
             } else {
               command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable}};
               command_obj[command_array[i][0]] = {[innerCommandName]:{className:individualTable, seederCount:recordCount}};
@@ -78,12 +98,6 @@ export default class DBDashBoard extends Component {
             command_obj[command_array[i][0]] = command_array[i][1];
           }
         }
-{/* {"dropTable":{"devTool::devTool_drop_class_table":"post"}} */}
-                  {/* {"createTable":{"devTool::devTool_create_class_table":"post"}} */}
-                  {/* {"insertRecords":{"devTool::devTool_insert_seeder_data":{"className":"tag"}}} */}
-
-
-
         console.log('**********************',command_obj);
         // put request in to form data
         const formData = new FormData();
@@ -227,122 +241,173 @@ export default class DBDashBoard extends Component {
 
   render() {
     // @ get active table start
-      // set tables
-      let activeClassTable = null; 
-      if (this.state.data.tables) {
-        const activeClass = this.state.data.tables[this.state.activeClassTable]
-        // get columns for activeClassTable
-        const columnAttributes = activeClass.tableStructure.map((column) => {
-          return (
-            <div key={column.Field} className="data-row">
-              <div className="tableColumnGrid">
-                <span>{column.Field}</span>
-                <span>
-                  {column.Type ? `${column.Type}` : ""}
-                  {column.Key ? `, ${column.Key}` : ""} 
-                  {column.Extra ? `, ${column.Extra}` : ""} 
-                  {column.Default ? `, Default: '${column.Default}'` : ""} 
-                </span>
+      // # active table start
+        // set tables
+        let activeClassTable = null; 
+        // set default variable
+        let activeClass = {
+          "seeder": false,
+          "sqlStructure": false,
+          "className": "",
+        };
+        if (this.state.data.tables) {
+          activeClass = this.state.data.tables[this.state.activeClassTable]
+          // get columns for activeClassTable
+          const columnAttributes = activeClass.tableStructure.map((column) => {
+            return (
+              <div key={column.Field} className="data-row">
+                <div className="tableColumnGrid">
+                  <span>{column.Field}</span>
+                  <span>
+                    {column.Type ? `${column.Type}` : ""}
+                    {column.Key ? `, ${column.Key}` : ""} 
+                    {column.Extra ? `, ${column.Extra}` : ""} 
+                    {column.Default ? `, Default: '${column.Default}'` : ""} 
+                  </span>
+                </div>
               </div>
-            </div>
+            ) 
+          })
+          activeClassTable =
+            <div className="" key={activeClass.tableName}>
+              <div className="flex-sb">
+                <h2 className="title">{activeClass.tableName}</h2>
+                <span className="size-counter">size({activeClass.tableSize ? activeClass.tableSize : "0MB"})</span>
+              </div>
+              <div className="record-count">count ({activeClass.recordCount ? activeClass.recordCount : "0"}) </div>
+              <div className="feature-list">
+                {activeClass.seeder ? <span className="grayTag">seeder</span> : ''}
+                {activeClass.contextApi ? <span className="grayTag">contextApi</span> : ''}
+                {activeClass.sqlStructure ? <span className="grayTag">sqlStructure</span> : ''}
+                {activeClass.restApi ? <span className="grayTag">restApi</span> : ''}
+              </div>
+              <p>Table Structure</p>
+              <hr className="style-3"/>
+              <div className="table-column-view"><div>{columnAttributes}</div></div>
+            </div>  
+          ;
+        }
+      // # active table end
+
+      // # select options start
+        // getting select options
+        let selectTableOptions = <React.Fragment><option value="">No options available...</option></React.Fragment>;
+        if (this.state.data.tables) { 
+          selectTableOptions = this.state.data.tables.map((table) => {
+            return (
+              <React.Fragment key={table.tableName}>
+                  <option value={table.className}>
+                    {table.tableName}
+                  </option>
+              </React.Fragment>
+            )
+          }) 
+          ;
+        }
+      // # select options end
+
+      // # chart info start
+        // get data for donut chart, set defaults
+        let getChartData = {
+          counts: [],
+          names: [],
+          backgroundColors: [],
+          borderColor: []
+        };
+        const colors = {
+          backgroundColors: [
+            'rgba(228, 86, 65, .3)',
+            'rgba(238, 136, 63, .3)',
+            'rgba(222, 187, 155, .3)',
+            'rgba(222, 220, 155, .3)',
+            'rgba(228, 168, 65, .3)'
+          ],
+          borderColor: [
+            '#E45641',
+            '#EE883F',
+            '#DEBB9B',
+            '#DEDC9B',
+            '#E4A841'
+          ]
+        }
+
+        // check to see if we have data
+        if (this.state.data.tables) {
+          let counter = 0;
+          for (let i = 0; i < this.state.data.tables.length; i++) {
+            getChartData.counts.push(this.state.data.tables[i].recordCount);
+            getChartData.names.push(this.state.data.tables[i].tableName);
+            if (counter >= colors.backgroundColors.length) {
+              counter = 0;  
+            }
+            getChartData.backgroundColors.push(colors.backgroundColors[counter]);
+            getChartData.borderColor.push(colors.borderColor[counter]);
+            counter++;
+          }
+        }
+
+        // console.log("getChartData",getChartData);
+
+        const data = {
+          datasets: [{
+            data: getChartData.counts ? getChartData.counts : [],
+            backgroundColor: getChartData.backgroundColors ? getChartData.backgroundColors : [],
+            borderColor: getChartData.borderColor ? getChartData.borderColor : [],
+            label: 'Class Baced Tables' // for legend
+          }],
+          labels: getChartData.names ? getChartData.names : []
+        };
+
+        const options = {
+          legend:{
+            display: true,
+            labels: {
+              usePointStyle: true,
+            }
+          },
+          maintainAspectRatio: true,
+        }
+
+        // appendage information to chart data 
+        // make immutable copy of array
+        const AppendageArray = [];
+        const getChartDataAppendage = {...getChartData};
+        for (let i = 0; i < getChartDataAppendage.counts.length; i++) {
+          const AppendageCount = getChartDataAppendage.counts[i];
+          const AppendageName = getChartDataAppendage.names[i];
+          const AppendageBackgroundColor = getChartDataAppendage.backgroundColors[i];
+          const AppendageBorderColor = getChartDataAppendage.borderColor[i];
+          AppendageArray.push({
+            index:i,
+            count:AppendageCount,
+            name:AppendageName,
+            backgroundColor:AppendageBackgroundColor,
+            borderColor:AppendageBorderColor,
+          });
+        }
+        // get appendage jsx
+        const appendageInfo = AppendageArray.map((info) => {
+          return (
+            <span 
+            key={info.index} 
+            data-index={info.index} 
+            style={{borderColor: info.borderColor}} 
+            className="appendage-info"
+            onClick={this.chartClickHandler.bind(this)}>
+              {`${info.name} (${info.count})`}
+            </span>
           ) 
         })
-        activeClassTable =
-          <div className="" key={activeClass.tableName}>
-            <div className="flex-sb">
-              <h2 className="title">{activeClass.tableName}</h2>
-              <span>size({activeClass.tableSize ? activeClass.tableSize : "0MB"})</span>
-            </div>
-            <span>count ({activeClass.recordCount ? activeClass.recordCount : "0"}) </span>
-            {activeClass.fakerData ? <span className="grayTag">fakerData</span> : ''}
-            {activeClass.sqlStructure ? <span className="grayTag">sqlStructure</span> : ''}
-            {activeClass.restApi ? <span className="grayTag">restApi</span> : ''}
-            <p>Table Structure</p>
-            <hr className="style-3"/>
-            <div className="table-column-view"><div>{columnAttributes}</div></div>
-          </div>  
-        ;
-      }
-
-      // get data for donut chart, set defaults
-      let getChartData = {
-        counts: [],
-        names: [],
-        backgroundColors: [],
-        borderColor: []
-      };
-      const colors = {
-        backgroundColors: [
-          'rgba(228, 86, 65, .3)',
-          'rgba(238, 136, 63, .3)',
-          'rgba(222, 187, 155, .3)',
-          'rgba(222, 220, 155, .3)',
-          'rgba(228, 168, 65, .3)'
-        ],
-        borderColor: [
-          '#E45641',
-          '#EE883F',
-          '#DEBB9B',
-          '#DEDC9B',
-          '#E4A841'
-        ]
-      }
-
-      // check to see if we have data
-      if (this.state.data.tables) {
-        let counter = 0;
-        for (let i = 0; i < this.state.data.tables.length; i++) {
-          getChartData.counts.push(this.state.data.tables[i].recordCount);
-          getChartData.names.push(this.state.data.tables[i].tableName);
-          if (counter >= colors.backgroundColors.length) {
-            counter = 0;  
-          }
-          getChartData.backgroundColors.push(colors.backgroundColors[counter]);
-          getChartData.borderColor.push(colors.borderColor[counter]);
-          counter++;
-        }
-      }
-
-      // getting select options
-      let selectTableOptions = <React.Fragment><option value="">No options available...</option></React.Fragment>;
-      if (this.state.data.tables) { 
-        selectTableOptions = this.state.data.tables.map((table) => {
-          return (
-            <React.Fragment key={table.tableName}>
-              {table.sqlStructure ? <option value={table.className} >{table.tableName}</option> : ''}
-            </React.Fragment>
-          )
-        }) 
-        ;
-        
-      }
-
-      // console.log("getChartData",getChartData);
-
-      const data = {
-        datasets: [{
-          data: getChartData.counts ? getChartData.counts : [],
-          backgroundColor: getChartData.backgroundColors ? getChartData.backgroundColors : [],
-          borderColor: getChartData.borderColor ? getChartData.borderColor : [],
-          label: 'Class Baced Tables' // for legend
-        }],
-        labels: getChartData.names ? getChartData.names : []
-      };
-
-      const options = {
-        legend:{
-          display: true,
-          labels: {
-            usePointStyle: true,
-          }
-        },
-        maintainAspectRatio: true,
-      }
+      // # chart info end
     // @ get active table end
 
-    // set fade-in animation
+    // set page fade-in animation
     setTimeout(() => {
-      document.querySelector(".DBDashBoard").classList.add('page-fade-in');
+      // check to see if there is a dashboard
+      const dashBoard = document.querySelector(".DBDashBoard");
+      if (dashBoard !== null) {
+        dashBoard.classList.add('page-fade-in');
+      }
     }, 800);
 
     // @ get connecting tables start
@@ -357,17 +422,34 @@ export default class DBDashBoard extends Component {
         // console.log('log', this.state.data.otherTables);
         // get other table layout ready  
         otherTables = otherTables_array.map((table) => {
+          // check to see how long the table name this
+          let tableName;
+          if (table.tableName.length >= 19) {
+            tableName = (
+              <span data-tooltip={table.tableName}>
+                {table.tableName.slice(0, 17) + '...'}
+              </span>
+            )
+          } else {
+              tableName = (
+                <span className="span-xs-5">
+                  {table.tableName}
+                </span>
+              )
+          }
           return (
             <div key={table.tableName} className="data-row">
                <div className="ci-grid ci-grid-no-pad ci-grid-center-items">
-                <span className="span-xs-5">{table.tableName}</span>
+                 <span className="span-xs-5">
+                  {tableName}
+                 </span>
                 <span className="span-xs-3">count ({table.count})</span>
                 <span className="span-xs-2">
                   {table.sql ? <span className="grayTag">SQL</span> : ''}
                 </span>
                 <div className="right-align span-xs-2 flex-end">
                   {/* check to see if we should display buttons, if the table is there button should appear */}
-                  { table.tableThere ? 
+                  { table.tableExists ? 
                       <React.Fragment>
                         <button className="data-row-btn"><i className="far fa-list-alt"></i></button>
                         <button className="data-row-btn"><i className="far fa-edit"></i></button>
@@ -382,6 +464,15 @@ export default class DBDashBoard extends Component {
       }
     // @ get connecting tables end
 
+    // @ selecting which buttons to disable
+      // check criteria and then switch it accordingly ex: !(true) = false, so you can use the button
+      const dropBtn = !(activeClass.sqlStructure && activeClass.tableExists);
+      const createBtn = !(activeClass.sqlStructure && !activeClass.tableExists);
+      const insertBtn = !(activeClass.seeder && activeClass.tableExists);
+      const dropCreateBtn = !activeClass.sqlStructure;
+      const dropCreateInsertBtn = !(activeClass.sqlStructure && activeClass.seeder);
+    // @ selecting which buttons to disable
+
     return (
       <div className="DBDashBoard">
         <div className="breadcrumb">
@@ -391,7 +482,10 @@ export default class DBDashBoard extends Component {
         </div>
         <div className="ci-grid">
           <div className="card span-lg-7 row-span-3">
-            <h4 className="title">Class Based Tables</h4>
+            <div className="flex-sb">
+              <h4 className="title">Class Based Tables</h4>
+              <span className="small-text">count ({(this.state.data.tables && this.state.data.tables.length) || 0})</span>
+            </div>
             <div className="ci-grid">
               <div className="span-xl-6 span-lg-12 span-sm-6 donutChart">
                 <Doughnut 
@@ -401,6 +495,9 @@ export default class DBDashBoard extends Component {
                   options={options} 
                   onElementsClick={this.chartClickHandler.bind(this)}
                 />
+                <div className="span-xl-12 appendage-info-container">
+                  {appendageInfo}
+                </div>
               </div>
               <div className="span-xl-6 span-lg-12 span-sm-6 chartDetails">
                 {activeClassTable}
@@ -427,7 +524,6 @@ export default class DBDashBoard extends Component {
               <hr className="style-3"/>
             </div>
             <div>
-              {/* ! start here **************************************************************** */}
               <button 
                 className="dt-btn gray-btn small-btn"
                 onClick={this.dataBaseCommandHandler.bind(this, [['createAllTables','devTool::devTool_create_all_tables']])}>
@@ -461,38 +557,44 @@ export default class DBDashBoard extends Component {
               <hr className="style-3"/>
             </div>
             <div>
-              <select className="form-control f-40" id="individualTable">
-                {selectTableOptions}
+              <select 
+                value={activeClass.className} 
+                className="form-control f-40" 
+                id="individualTable"
+                onChange={this.selectChangeHandler}>
+                  {selectTableOptions}
               </select>
-              <input className="form-control f-40" id="numberOfRecords" type="text" placeholder="# of records"/>
+              <input className="form-control f-40" id="numberOfRecords" type="text" placeholder={"# of records, default " + activeClass.defaultCount}/>
             </div>
             <div>
               <button
                 className="dt-btn gray-btn small-btn"
-                onClick={this.dataBaseCommandHandler.bind(this, [['createTable','devTool::devTool_create_class_table']])}>
+                onClick={this.dataBaseCommandHandler.bind(this, [['createTable','devTool::devTool_create_class_table']])}
+                disabled={createBtn}>
                   Create
-                  {/* {"createTable":{"devTool::devTool_create_class_table":"post"}} */}
               </button>
               <button 
                 className="dt-btn gray-btn small-btn"
-                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table']])}>
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table']])}
+                disabled={dropBtn}>
                   Drop 
-                  {/* {"dropTable":{"devTool::devTool_drop_class_table":"post"}} */}
               </button>
               <button 
                 className="dt-btn gray-btn small-btn"
-                onClick={this.dataBaseCommandHandler.bind(this, [['insertRecords','devTool::devTool_insert_seeder_data']])}>
+                onClick={this.dataBaseCommandHandler.bind(this, [['insertRecords','devTool::devTool_insert_seeder_data']])}
+                disabled={insertBtn}>
                   Insert Records 
-                  {/* {"insertRecords":{"devTool::devTool_insert_seeder_data":{"className":"tag"}}} */}
               </button>
               <button 
                 className="dt-btn gray-btn small-btn"
-                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table']])}>
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table']])}
+                disabled={dropCreateBtn}>
                   Drop/Create
               </button>
-              <button 
+              <button
                 className="dt-btn gray-btn small-btn"
-                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table'],['insertRecords','devTool::devTool_insert_seeder_data']])}>
+                onClick={this.dataBaseCommandHandler.bind(this, [['dropTable','devTool::devTool_drop_class_table'],['createTable','devTool::devTool_create_class_table'],['insertRecords','devTool::devTool_insert_seeder_data']])}
+                disabled={dropCreateInsertBtn}>
                   Drop/Create/Insert
               </button>
             </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 // CSS
 import './Header.css';
 // components
@@ -11,7 +12,9 @@ export default function Header(props) {
   return (
     <header className="header">
       <div className="header_logo_container">
-        <img src={props.logo} className="header_logo" alt="Core Integration DevTool Logo"/>
+        <NavLink to={'/Database'} key={'/Database'}>
+          <img src={props.logo} className="header_logo" alt="Core Integration DevTool Logo"/>
+        </NavLink>
       </div>
       <div className="header_left_container">
         <MenuIcon click={props.menuClick}/>

@@ -103,7 +103,9 @@ export default class DBDashBoard extends Component {
         const formData = new FormData();
         formData.append('instructions', JSON.stringify(command_obj));
         // make the call to the core integration context API
-        axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData, {timeout: 10000})
+        // CI: http://localhost/open_source_project/public/api/contextApi/v1/
+        // Recipe App http://localhost/recipe_app/public/api/contextApi/v1/
+        axios.post('http://localhost/recipe_app/public/api/contextApi/v1/', formData, {timeout: 10000})
           .then(response => {
             console.log("contextApi got it", response);
             // we are trying to detect if were getting back a message that is not Jason
@@ -198,7 +200,10 @@ export default class DBDashBoard extends Component {
     const formData = new FormData();
     formData.append('instructions', JSON.stringify(instructions_str));
     // make the call to the core integration context API
-    axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
+    // TODO: possibly make this a variable so I can utilize systems from one DevTool
+    // CI: http://localhost/open_source_project/public/api/contextApi/v1/
+    // Recipe App http://localhost/recipe_app/public/api/contextApi/v1/
+    axios.post('http://localhost/recipe_app/public/api/contextApi/v1/', formData)
       .then(response => {
         // console.log("contextApi got it", response);
         const updateStateArray = {};

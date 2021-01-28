@@ -51,7 +51,9 @@ export default class LoginLayout extends Component {
     formData.append('instructions', JSON.stringify(instructions_str));
     
     // make the call to the core integration context API
-    axios.post('http://localhost/open_source_project/public/api/contextApi/v1/', formData)
+    // CI: http://localhost/open_source_project/public/api/contextApi/v1/
+    // Recipe App http://localhost/recipe_app/public/api/contextApi/v1/
+    axios.post('http://localhost/recipe_app/public/api/contextApi/v1/', formData)
       .then(response => {
         // console.log("contextApi got it", response);
         // check for a good response
